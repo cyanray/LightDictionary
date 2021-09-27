@@ -11,7 +11,7 @@
     <Page.Resources>
         <local:AppSettings x:Key="AppSettings" />
     </Page.Resources>
-    <Grid>
+    <ScrollViewer>
         <StackPanel Spacing="10" Margin="30">
             <TextBlock x:Uid="SettingsPageTitle" FontSize="26"></TextBlock>
             <muxc:InfoBar x:Name="InfoNeedRestart"
@@ -23,6 +23,10 @@
                     <Button x:Uid="InfoNeedRestart_RestartAction" Click="InfoNeedRestart_RestartAction" />
                 </muxc:InfoBar.ActionButton>
             </muxc:InfoBar>
+            <TextBlock x:Uid="SettingsAppearance"
+                           Style="{StaticResource BodyStrongTextBlockStyle}"
+                           AutomationProperties.HeadingLevel="Level1"/>
+            
             <ComboBox x:Name="LanguagePicker" 
                       x:Uid="LanguagePicker"
                       ItemsSource="{x:Bind UserLanguages}" 
@@ -31,12 +35,8 @@
                       DropDownOpened="LanguagePicker_DropDownOpened"
                       SelectedItem="{Binding Source={StaticResource AppSettings}, Path=PrimaryLanguageOverride, Mode=TwoWay}">
             </ComboBox>
-            <TextBlock x:Uid="SettingsAppearance"
-                           Style="{StaticResource BodyStrongTextBlockStyle}"
-                           AutomationProperties.HeadingLevel="Level1"/>
 
             <muxc:Expander x:Name="AppThemeExpander"
-                               Grid.Row="1"
                                Margin="0,8,0,0"
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Top"
@@ -85,5 +85,5 @@
                 </muxc:Expander.Content>
             </muxc:Expander>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </Page>

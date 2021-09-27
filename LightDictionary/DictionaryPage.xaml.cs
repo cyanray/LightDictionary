@@ -26,5 +26,47 @@ namespace LightDictionary
         {
             this.InitializeComponent();
         }
+
+        // List of cats
+        private List<string> Cats = new List<string>()
+        {
+            "Abyssinian",
+            "Aegean",
+            "American Bobtail"
+        };
+
+        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            var suitableItems = new List<string>();
+            var splitText = sender.Text.ToLower().Split(" ");
+            foreach (var cat in Cats)
+            {
+                var found = splitText.All((key) =>
+                {
+                    return cat.ToLower().Contains(key);
+                });
+                if (found)
+                {
+                    suitableItems.Add(cat);
+                }
+            }
+            if (suitableItems.Count == 0)
+            {
+                suitableItems.Add("No results found");
+            }
+            sender.ItemsSource = suitableItems;
+        }
+
+
+        // Handle user selecting an item, in our case just output the selected item.
+        private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            // SuggestionOutput.Text = args.SelectedItem.ToString();
+        }
+
+        private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+
+        }
     }
 }

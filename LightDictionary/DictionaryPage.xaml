@@ -4,12 +4,155 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:LightDictionary"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
-    <Grid>
+    <ScrollViewer>
         <StackPanel Spacing="10" Margin="30">
             <TextBlock x:Uid="DictionaryPageTitle" FontSize="26"></TextBlock>
+            <AutoSuggestBox PlaceholderText="输入要查询的单词..."
+                            TextChanged="AutoSuggestBox_TextChanged"
+                            QueryIcon="Find"
+                            QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                            SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+            <muxc:Expander 
+                               Margin="0,8,0,0"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Top"
+                               HorizontalContentAlignment="Left"
+                               ExpandDirection="Down"
+                               IsExpanded="True">
+                <muxc:Expander.Header>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <FontIcon Margin="0,0,12,0"
+                                      VerticalAlignment="Center"
+                                      Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                      FontFamily="Segoe Fluent Icons"
+                                      FontSize="16"
+                                      Glyph="&#xE945;"/>
+                        <StackPanel Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                        Margin="0,12"
+                                        Orientation="Vertical">
+                            <TextBlock Text="本地词典结果" Style="{StaticResource BodyTextBlockStyle}"/>
+                        </StackPanel>
+                    </Grid>
+                </muxc:Expander.Header>
+                <muxc:Expander.Content>
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Welcome" FontSize="26"></TextBlock>
+                        <StackPanel Spacing="5" Orientation="Horizontal">
+                            <Button VerticalAlignment="Center">
+                                <StackPanel Spacing="2" Orientation="Horizontal">
+                                    <TextBlock Text="美" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="[" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="ˈwelkəm" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="]" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <FontIcon
+                                      VerticalAlignment="Center"
+                                      Foreground="Gray"
+                                      FontFamily="Segoe Fluent Icons"
+                                      Glyph="&#xE767;"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button VerticalAlignment="Center">
+                                <StackPanel Spacing="2" Orientation="Horizontal">
+                                    <TextBlock Text="英" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="[" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="'welkəm" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="]" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <FontIcon
+                                      VerticalAlignment="Center"
+                                      Foreground="Gray"
+                                      FontFamily="Segoe Fluent Icons"
+                                      Glyph="&#xE767;"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Spacing="10" Orientation="Horizontal">
+                            <TextBlock Text="n." Style="{StaticResource BodyTextBlockStyle}"></TextBlock>
+                            <TextBlock Text="欢迎；迎接；接待；接受"></TextBlock>
+                        </StackPanel>
+                        
+                    </StackPanel>
+                </muxc:Expander.Content>
+            </muxc:Expander>
+
+            <muxc:Expander 
+                   Margin="0,8,0,0"
+                   HorizontalAlignment="Stretch"
+                   VerticalAlignment="Top"
+                   HorizontalContentAlignment="Left"
+                   ExpandDirection="Down"
+                   IsExpanded="False">
+                <muxc:Expander.Header>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <FontIcon Margin="0,0,12,0"
+                                      VerticalAlignment="Center"
+                                      Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                      FontFamily="Segoe Fluent Icons"
+                                      FontSize="16"
+                                      Glyph="&#xE701;"/>
+                        <StackPanel Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                        Margin="0,12"
+                                        Orientation="Vertical">
+                            <TextBlock Text="必应词典" Style="{StaticResource BodyTextBlockStyle}"/>
+                        </StackPanel>
+                    </Grid>
+                </muxc:Expander.Header>
+                <muxc:Expander.Content>
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Welcome" FontSize="26"></TextBlock>
+                        <StackPanel Spacing="5" Orientation="Horizontal">
+                            <Button VerticalAlignment="Center">
+                                <StackPanel Spacing="2" Orientation="Horizontal">
+                                    <TextBlock Text="美" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="[" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="ˈwelkəm" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="]" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <FontIcon
+                                      VerticalAlignment="Center"
+                                      Foreground="Gray"
+                                      FontFamily="Segoe Fluent Icons"
+                                      Glyph="&#xE767;"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button VerticalAlignment="Center">
+                                <StackPanel Spacing="2" Orientation="Horizontal">
+                                    <TextBlock Text="英" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="[" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="'welkəm" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="]" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <FontIcon
+                                      VerticalAlignment="Center"
+                                      Foreground="Gray"
+                                      FontFamily="Segoe Fluent Icons"
+                                      Glyph="&#xE767;"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Spacing="10" Orientation="Horizontal">
+                            <TextBlock Text="n." Style="{StaticResource BodyTextBlockStyle}"></TextBlock>
+                            <TextBlock Text="欢迎；迎接；接待；接受"></TextBlock>
+                        </StackPanel>
+
+                    </StackPanel>
+                </muxc:Expander.Content>
+            </muxc:Expander>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </Page>
