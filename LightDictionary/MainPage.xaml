@@ -1,0 +1,64 @@
+﻿<Page
+    x:Class="LightDictionary.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightDictionary"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+    <Page.Resources>
+        <!--This top margin is the height of the custom TitleBar-->
+        <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
+    </Page.Resources>
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowFocusStates">
+                <VisualState x:Name="WindowFocused" />
+                <VisualState x:Name="WindowNotFocused">
+                    <VisualState.Setters>
+                        <Setter Target="AppTitle.Foreground"
+                            Value="{ThemeResource SystemControlForegroundChromeDisabledLowBrush}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Border x:Name="AppTitleBar"
+                IsHitTestVisible="True"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                Height="40"
+                Canvas.ZIndex="1" 
+                Margin="48,8,0,0">
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="AppFontIcon"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center"
+                    Source="Assets/Square44x44Logo.png" 
+                    Width="16" 
+                    Height="16"/>
+                <TextBlock x:Name="AppTitle"
+                    x:Uid="AppDisplayName"
+                    VerticalAlignment="Center"
+                    Margin="12, 0, 0, 0"
+                    Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}" />
+            </StackPanel>
+        </Border>
+        <muxc:NavigationView x:Name="NavigationViewControl"
+            PaneDisplayMode="LeftCompact"
+            IsTitleBarAutoPaddingEnabled="False"
+            IsBackButtonVisible="Visible"
+            DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
+            ItemInvoked="NavigationViewControl_ItemInvoked"
+            Canvas.ZIndex="0">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem x:Uid="NavItemDictionary" Icon="Find" Tag="Dictionary" IsSelected="True"/>
+                <muxc:NavigationViewItem x:Uid="NavItemTranslation" Icon="Character" Tag="Translation"/>
+                <muxc:NavigationViewItem x:Uid="NavItemNote" Icon="Highlight" Tag="Note"/>
+            </muxc:NavigationView.MenuItems>
+            <Frame x:Name="ContentFrame" />
+        </muxc:NavigationView>
+    </Grid>
+</Page>

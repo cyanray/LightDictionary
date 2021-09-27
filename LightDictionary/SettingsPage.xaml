@@ -1,0 +1,89 @@
+﻿<Page
+    x:Class="LightDictionary.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightDictionary"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+    <Page.Resources>
+        <local:AppSettings x:Key="AppSettings" />
+    </Page.Resources>
+    <Grid>
+        <StackPanel Spacing="10" Margin="30">
+            <TextBlock x:Uid="SettingsPageTitle" FontSize="26"></TextBlock>
+            <muxc:InfoBar x:Name="InfoNeedRestart"
+                          x:Uid="InfoNeedRestart"
+                          IsOpen="False"
+                          IsClosable="False"
+                          Severity="Informational">
+                <muxc:InfoBar.ActionButton>
+                    <Button x:Uid="InfoNeedRestart_RestartAction" Click="InfoNeedRestart_RestartAction" />
+                </muxc:InfoBar.ActionButton>
+            </muxc:InfoBar>
+            <ComboBox x:Name="LanguagePicker" 
+                      x:Uid="LanguagePicker"
+                      ItemsSource="{x:Bind UserLanguages}" 
+                      Width="200"
+                      SelectionChanged="LanguagePicker_SelectionChanged"
+                      DropDownOpened="LanguagePicker_DropDownOpened"
+                      SelectedItem="{Binding Source={StaticResource AppSettings}, Path=PrimaryLanguageOverride, Mode=TwoWay}">
+            </ComboBox>
+            <TextBlock x:Uid="SettingsAppearance"
+                           Style="{StaticResource BodyStrongTextBlockStyle}"
+                           AutomationProperties.HeadingLevel="Level1"/>
+
+            <muxc:Expander x:Name="AppThemeExpander"
+                               Grid.Row="1"
+                               Margin="0,8,0,0"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Top"
+                               HorizontalContentAlignment="Left"
+                               ExpandDirection="Down"
+                               IsExpanded="False">
+                <muxc:Expander.Header>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <FontIcon Margin="0,0,12,0"
+                                      VerticalAlignment="Center"
+                                      Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                      FontFamily="Segoe Fluent Icons"
+                                      FontSize="16"
+                                      Glyph="&#xE790;"/>
+
+                        <StackPanel Grid.Column="1"
+                                        Margin="0,12"
+                                        Orientation="Vertical">
+                            <TextBlock x:Uid="SettingsAppThemeTitle" Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock x:Uid="SettingsAppThemeDescription"
+                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           TextWrapping="WrapWholeWords"/>
+                        </StackPanel>
+                    </Grid>
+                </muxc:Expander.Header>
+                <muxc:Expander.Content>
+                    <muxc:RadioButtons x:Name="ThemeRadioButtons"
+                                           Margin="32,0,0,0"
+                                           SelectionChanged="OnThemeSelectionChanged" >
+                        <RadioButton x:Name="LightThemeRadioButton"
+                                         x:Uid="LightThemeRadioButton"
+                                         Tag="Light"/>
+                        <RadioButton x:Name="DarkThemeRadioButton"
+                                         x:Uid="DarkThemeRadioButton"
+                                         Tag="Dark"/>
+                        <RadioButton x:Name="SystemThemeRadioButton"
+                                         x:Uid="SystemThemeRadioButton"
+                                         Tag="Default"/>
+                    </muxc:RadioButtons>
+                </muxc:Expander.Content>
+            </muxc:Expander>
+        </StackPanel>
+    </Grid>
+</Page>
