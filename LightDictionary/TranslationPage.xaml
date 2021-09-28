@@ -7,9 +7,46 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <StackPanel Spacing="10" Margin="30,20,30,20">
-            <TextBlock x:Uid="TranslationPageTitle" FontSize="26"></TextBlock>
+    <Grid RowSpacing="10" Margin="30,20,30,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" x:Uid="TranslationPageTitle" FontSize="26"></TextBlock>
+
+        <StackPanel Grid.Row="1" Spacing="5" Orientation="Horizontal">
+            <ComboBox SelectedIndex="0" PlaceholderText="Pick a service" Width="100">
+                <x:String>Bing</x:String>
+                <x:String>Google</x:String>
+                <x:String>Baidu</x:String>
+            </ComboBox>
+            <Button 
+                    MinWidth="120" 
+                    Content="翻译" 
+                    Style="{StaticResource AccentButtonStyle}" />
         </StackPanel>
+
+        <Grid Grid.Row="2" RowSpacing="10" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBox Grid.Row="0" 
+                             TextWrapping="Wrap" 
+                             AcceptsReturn="True" 
+                             IsSpellCheckEnabled="True" 
+                             VerticalAlignment="Stretch"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            <TextBox Grid.Row="1"
+                             IsReadOnly="True"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             IsSpellCheckEnabled="True"
+                             VerticalAlignment="Stretch"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        </Grid>
+
     </Grid>
 </Page>

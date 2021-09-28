@@ -50,13 +50,12 @@
                         <StackPanel Spacing="5" Orientation="Horizontal">
                             <Button VerticalAlignment="Center">
                                 <StackPanel Spacing="2" Orientation="Horizontal">
-                                    <TextBlock Text="美" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="[" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="ˈwelkəm" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="]" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="美" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="ˈwelkəm" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
                                     <FontIcon
                                       VerticalAlignment="Center"
-                                      Foreground="Gray"
                                       FontFamily="Segoe Fluent Icons"
                                       Glyph="&#xE767;"/>
                                 </StackPanel>
@@ -64,13 +63,12 @@
 
                             <Button VerticalAlignment="Center">
                                 <StackPanel Spacing="2" Orientation="Horizontal">
-                                    <TextBlock Text="英" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="[" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="'welkəm" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="]" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="英" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="'welkəm" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
                                     <FontIcon
                                       VerticalAlignment="Center"
-                                      Foreground="Gray"
                                       FontFamily="Segoe Fluent Icons"
                                       Glyph="&#xE767;"/>
                                 </StackPanel>
@@ -104,7 +102,7 @@
                                       Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                                       FontFamily="Segoe Fluent Icons"
                                       FontSize="16"
-                                      Glyph="&#xE701;"/>
+                                      Glyph="&#xf6fa;"/>
                         <StackPanel Grid.Column="1"
                                     VerticalAlignment="Center"
                                         Margin="0,12"
@@ -119,10 +117,10 @@
                         <StackPanel Spacing="5" Orientation="Horizontal">
                             <Button VerticalAlignment="Center">
                                 <StackPanel Spacing="2" Orientation="Horizontal">
-                                    <TextBlock Text="美" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="[" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="ˈwelkəm" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="]" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="美" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="ˈwelkəm" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
                                     <FontIcon
                                       VerticalAlignment="Center"
                                       Foreground="Gray"
@@ -133,10 +131,10 @@
 
                             <Button VerticalAlignment="Center">
                                 <StackPanel Spacing="2" Orientation="Horizontal">
-                                    <TextBlock Text="英" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="[" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="'welkəm" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="]" Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="英" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="'welkəm" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
                                     <FontIcon
                                       VerticalAlignment="Center"
                                       Foreground="Gray"
