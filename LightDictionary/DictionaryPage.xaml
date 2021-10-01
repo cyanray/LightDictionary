@@ -16,8 +16,8 @@
                             QueryIcon="Find"
                             QuerySubmitted="AutoSuggestBox_QuerySubmitted"
                             SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+            <!--本地词典结果-->
             <muxc:Expander 
-                               Margin="0,8,0,0"
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Top"
                                HorizontalContentAlignment="Left"
@@ -33,7 +33,7 @@
                         <FontIcon Margin="0,0,12,0"
                                       VerticalAlignment="Center"
                                       Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                      FontFamily="Segoe Fluent Icons"
+                                      FontFamily="{StaticResource SegoeFluentIcons}"
                                       FontSize="16"
                                       Glyph="&#xE945;"/>
                         <StackPanel Grid.Column="1"
@@ -42,6 +42,7 @@
                                         Orientation="Vertical">
                             <TextBlock Text="本地词典结果" Style="{StaticResource BodyTextBlockStyle}"/>
                         </StackPanel>
+                        
                     </Grid>
                 </muxc:Expander.Header>
                 <muxc:Expander.Content>
@@ -56,7 +57,7 @@
                                     <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
                                     <FontIcon
                                       VerticalAlignment="Center"
-                                      FontFamily="Segoe Fluent Icons"
+                                      FontFamily="{StaticResource SegoeFluentIcons}"
                                       Glyph="&#xE767;"/>
                                 </StackPanel>
                             </Button>
@@ -69,7 +70,7 @@
                                     <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
                                     <FontIcon
                                       VerticalAlignment="Center"
-                                      FontFamily="Segoe Fluent Icons"
+                                      FontFamily="{StaticResource SegoeFluentIcons}"
                                       Glyph="&#xE767;"/>
                                 </StackPanel>
                             </Button>
@@ -78,13 +79,13 @@
                             <TextBlock Text="n." Style="{StaticResource BodyTextBlockStyle}"></TextBlock>
                             <TextBlock Text="欢迎；迎接；接待；接受"></TextBlock>
                         </StackPanel>
-                        
+
                     </StackPanel>
                 </muxc:Expander.Content>
             </muxc:Expander>
 
+            <!--网络词典结果-->
             <muxc:Expander 
-                   Margin="0,8,0,0"
                    HorizontalAlignment="Stretch"
                    VerticalAlignment="Top"
                    HorizontalContentAlignment="Left"
@@ -95,12 +96,13 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
                         <FontIcon Margin="0,0,12,0"
                                       VerticalAlignment="Center"
                                       Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                      FontFamily="Segoe Fluent Icons"
+                                      FontFamily="{StaticResource SegoeFluentIcons}"
                                       FontSize="16"
                                       Glyph="&#xf6fa;"/>
                         <StackPanel Grid.Column="1"
@@ -109,6 +111,23 @@
                                         Orientation="Vertical">
                             <TextBlock Text="必应词典" Style="{StaticResource BodyTextBlockStyle}"/>
                         </StackPanel>
+                        <Button Grid.Column="2" Width="80" Height="32" IsEnabled="True">
+                            <StackPanel Orientation="Horizontal">
+                                <muxc:ProgressRing 
+                                    Width="16" Height="16" 
+                                    Visibility="Collapsed" 
+                                    IsActive="True"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                                <FontIcon
+                                      Visibility="Visible"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      FontSize="16"
+                                      FontFamily="{StaticResource SegoeFluentIcons}"
+                                      Glyph="&#xE72C;"/>
+                            </StackPanel>
+                        </Button>
                     </Grid>
                 </muxc:Expander.Header>
                 <muxc:Expander.Content>
@@ -123,8 +142,7 @@
                                     <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
                                     <FontIcon
                                       VerticalAlignment="Center"
-                                      Foreground="Gray"
-                                      FontFamily="Segoe Fluent Icons"
+                                      FontFamily="{StaticResource SegoeFluentIcons}"
                                       Glyph="&#xE767;"/>
                                 </StackPanel>
                             </Button>
@@ -137,8 +155,7 @@
                                     <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
                                     <FontIcon
                                       VerticalAlignment="Center"
-                                      Foreground="Gray"
-                                      FontFamily="Segoe Fluent Icons"
+                                      FontFamily="{StaticResource SegoeFluentIcons}"
                                       Glyph="&#xE767;"/>
                                 </StackPanel>
                             </Button>
