@@ -120,11 +120,17 @@
   <data name="AppDisplayName.Text" xml:space="preserve">
     <value>轻词典</value>
   </data>
+  <data name="BingDictionaryResultHeader.Text" xml:space="preserve">
+    <value>必应词典</value>
+  </data>
   <data name="DarkThemeRadioButton.Content" xml:space="preserve">
     <value>深色</value>
   </data>
   <data name="DictionaryPageTitle.Text" xml:space="preserve">
     <value>词典</value>
+  </data>
+  <data name="DictionarySearchBox.PlaceholderText" xml:space="preserve">
+    <value>输入要查询的单词...</value>
   </data>
   <data name="InfoNeedRestart.Message" xml:space="preserve">
     <value>部分设置重启后生效。</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="LightThemeRadioButton.Content" xml:space="preserve">
     <value>浅色</value>
+  </data>
+  <data name="LocalDictionaryResultHeader.Text" xml:space="preserve">
+    <value>本地词典</value>
   </data>
   <data name="NavItemDictionary.Content" xml:space="preserve">
     <value>词典</value>
@@ -170,6 +179,9 @@
   </data>
   <data name="SystemThemeRadioButton.Content" xml:space="preserve">
     <value>使用系统设置</value>
+  </data>
+  <data name="TranslationButton.Content" xml:space="preserve">
+    <value>翻译</value>
   </data>
   <data name="TranslationPageTitle.Text" xml:space="preserve">
     <value>翻译</value>

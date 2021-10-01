@@ -24,13 +24,15 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        
         <Border x:Name="AppTitleBar"
                 IsHitTestVisible="True"
                 VerticalAlignment="Top"
+                HorizontalAlignment="Stretch"
                 Background="Transparent"
-                Height="40"
+                Height="48"
                 Canvas.ZIndex="1" 
-                Margin="48,8,0,0">
+                Margin="48,0,0,0">
             <StackPanel Orientation="Horizontal">
                 <Image x:Name="AppFontIcon"
                     HorizontalAlignment="Left" 
@@ -46,19 +48,21 @@
                     Style="{StaticResource CaptionTextBlockStyle}" />
             </StackPanel>
         </Border>
-        <muxc:NavigationView x:Name="NavigationViewControl"
-            PaneDisplayMode="LeftCompact"
-            IsTitleBarAutoPaddingEnabled="False"
-            IsBackButtonVisible="Visible"
-            DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
-            ItemInvoked="NavigationViewControl_ItemInvoked"
-            Canvas.ZIndex="0">
+        
+        <muxc:NavigationView x:Name="MainNav"
+                             PaneDisplayMode="LeftCompact"
+                             IsTitleBarAutoPaddingEnabled="False"
+                             IsBackButtonVisible="Visible"
+                             DisplayModeChanged="MainNav_DisplayModeChanged"
+                             ItemInvoked="MainNav_ItemInvoked"
+                             BackRequested="MainNav_BackRequested"
+                             Canvas.ZIndex="0">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem x:Uid="NavItemDictionary" Icon="Find" Tag="Dictionary" IsSelected="True"/>
                 <muxc:NavigationViewItem x:Uid="NavItemTranslation" Icon="Character" Tag="Translation"/>
                 <muxc:NavigationViewItem x:Uid="NavItemNote" Icon="Highlight" Tag="Note"/>
             </muxc:NavigationView.MenuItems>
-            <Frame x:Name="ContentFrame" />
+            <Frame x:Name="ContentFrame" Navigated="ContentFrame_Navigated" />
         </muxc:NavigationView>
     </Grid>
 </Page>

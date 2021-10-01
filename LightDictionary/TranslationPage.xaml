@@ -22,9 +22,8 @@
                 <x:String>Google</x:String>
                 <x:String>Baidu</x:String>
             </ComboBox>
-            <Button 
+            <Button x:Uid="TranslationButton"
                     MinWidth="120" 
-                    Content="翻译" 
                     Style="{StaticResource AccentButtonStyle}" />
         </StackPanel>
 

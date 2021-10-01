@@ -120,11 +120,17 @@
   <data name="AppDisplayName.Text" xml:space="preserve">
     <value>Light Dictionary</value>
   </data>
+  <data name="BingDictionaryResultHeader.Text" xml:space="preserve">
+    <value>Bing dictionary</value>
+  </data>
   <data name="DarkThemeRadioButton.Content" xml:space="preserve">
     <value>Dark</value>
   </data>
   <data name="DictionaryPageTitle.Text" xml:space="preserve">
     <value>Dictionary</value>
+  </data>
+  <data name="DictionarySearchBox.PlaceholderText" xml:space="preserve">
+    <value>Enter the word to search...</value>
   </data>
   <data name="InfoNeedRestart.Message" xml:space="preserve">
     <value>Some settings will take effect after restarting.</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="LightThemeRadioButton.Content" xml:space="preserve">
     <value>Light</value>
+  </data>
+  <data name="LocalDictionaryResultHeader.Text" xml:space="preserve">
+    <value>Local dictionary</value>
   </data>
   <data name="NavItemDictionary.Content" xml:space="preserve">
     <value>Dictionary</value>
@@ -170,6 +179,9 @@
   </data>
   <data name="SystemThemeRadioButton.Content" xml:space="preserve">
     <value>Use system setting</value>
+  </data>
+  <data name="TranslationButton.Content" xml:space="preserve">
+    <value>Translate</value>
   </data>
   <data name="TranslationPageTitle.Text" xml:space="preserve">
     <value>Translation</value>

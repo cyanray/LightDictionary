@@ -44,7 +44,7 @@ namespace LightDictionary
             Window.Current.Activated += Current_Activated;
 
             // Set XAML element as a draggable region.
-            Window.Current.SetTitleBar(null);
+            Window.Current.SetTitleBar(AppTitleBar);
 
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
@@ -74,12 +74,9 @@ namespace LightDictionary
 
         private void UpdateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar)
         {
-            // Update title bar control size as needed to account for system size changes.
-            AppTitleBar.Height = coreTitleBar.Height;
-
             // Ensure the custom title bar does not overlap window caption controls
             Thickness currMargin = AppTitleBar.Margin;
-            AppTitleBar.Margin = new Thickness(currMargin.Left, currMargin.Top, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
+            AppTitleBar.Margin = new Thickness(currMargin.Left, 0, coreTitleBar.SystemOverlayRightInset, currMargin.Bottom);
         }
 
         private void CoreTitleBar_IsVisibleChanged(CoreApplicationViewTitleBar sender, object args)
@@ -95,7 +92,7 @@ namespace LightDictionary
         }
 
         // Update the TitleBar based on the inactive/active state of the app
-        private void Current_Activated(object sender, Windows.UI.Core.WindowActivatedEventArgs e)
+        private void Current_Activated(object sender, WindowActivatedEventArgs e)
         {
             VisualStateManager.GoToState(
                 this, e.WindowActivationState == CoreWindowActivationState.Deactivated ? WindowNotFocused.Name : WindowFocused.Name, false);
@@ -149,14 +146,14 @@ namespace LightDictionary
         }
 
         // Update the TitleBar content layout depending on NavigationView DisplayMode
-        private void NavigationViewControl_DisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
+        private void MainNav_DisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
         {
             const int topIndent = 16;
             const int expandedIndent = 48;
             int minimalIndent = 104;
 
             // If the back button is not visible, reduce the TitleBar content indent.
-            if (NavigationViewControl.IsBackButtonVisible.Equals(Microsoft.UI.Xaml.Controls.NavigationViewBackButtonVisible.Collapsed))
+            if (MainNav.IsBackButtonVisible.Equals(Microsoft.UI.Xaml.Controls.NavigationViewBackButtonVisible.Collapsed))
             {
                 minimalIndent = 48;
             }
@@ -178,7 +175,7 @@ namespace LightDictionary
             }
         }
 
-        private void NavigationViewControl_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender,
+        private void MainNav_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender,
             Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             var item = args.InvokedItemContainer;
@@ -203,6 +200,30 @@ namespace LightDictionary
                 _ = ContentFrame.Navigate(typeof(SettingsPage));
                 return;
             }
+        }
+
+        private void MainNav_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
+        {
+            TryGoBack();
+        }
+
+        private bool TryGoBack()
+        {
+            if (!ContentFrame.CanGoBack) return false;
+
+            // Don't go back if the nav pane is overlayed.
+            if (MainNav.IsPaneOpen &&
+                (MainNav.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Compact ||
+                 MainNav.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal))
+                return false;
+
+            ContentFrame.GoBack();
+            return true;
+        }
+
+        private void ContentFrame_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            MainNav.IsBackEnabled = ContentFrame.CanGoBack;
         }
     }
 }

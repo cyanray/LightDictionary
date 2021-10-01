@@ -66,7 +66,9 @@ namespace LightDictionary
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-
+            VisualStateManager.GoToState(this, HasSearchResult.Name, false);
+            LocalResultExpander.Visibility = Visibility.Visible;
+            BingResultExpander.Visibility = Visibility = Visibility.Visible;
         }
     }
 }
