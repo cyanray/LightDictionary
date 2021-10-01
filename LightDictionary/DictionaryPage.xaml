@@ -37,7 +37,8 @@
                 <RowDefinition x:Name="SearchResultPlayground" Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock x:Uid="DictionaryPageTitle" FontSize="26"></TextBlock>
-            <AutoSuggestBox x:Uid="DictionarySearchBox"
+            <AutoSuggestBox x:Name="DictionarySearchBox" 
+                            x:Uid="DictionarySearchBox"
                             Grid.Row="1"
                             VerticalAlignment="Center"
                             TextChanged="AutoSuggestBox_TextChanged"

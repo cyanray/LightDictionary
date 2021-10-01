@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LightDictionary.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -66,9 +67,26 @@ namespace LightDictionary
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            VisualStateManager.GoToState(this, HasSearchResult.Name, false);
-            LocalResultExpander.Visibility = Visibility.Visible;
-            BingResultExpander.Visibility = Visibility = Visibility.Visible;
+            var param = new DictionaryNavParam()
+            {
+                SearchText = sender.Text
+            };
+            _ = MainPage.MainPageFrame.Navigate(typeof(DictionaryPage), param);
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is DictionaryNavParam param)
+            {
+                if (string.IsNullOrEmpty(param.SearchText?.Trim())) return;
+                DictionarySearchBox.Text = param.SearchText;
+                VisualStateManager.GoToState(this, HasSearchResult.Name, false);
+                LocalResultExpander.Visibility = Visibility.Visible;
+                BingResultExpander.Visibility = Visibility = Visibility.Visible;
+                // TODO: Loading search result...
+            }
+            base.OnNavigatedTo(e);
+        }
+
     }
 }

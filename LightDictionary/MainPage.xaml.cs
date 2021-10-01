@@ -19,9 +19,13 @@ namespace LightDictionary
     {
         private Utils.ThemeHelper.ThemeChangedCallbackToken m_rootFrameRequestedThemeCallbackToken;
 
+        public static Frame MainPageFrame;
+
         public MainPage()
         {
             this.InitializeComponent();
+            MainPageFrame = ContentFrame;
+
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
             titleBar.ButtonBackgroundColor = Windows.UI.Colors.Transparent;
