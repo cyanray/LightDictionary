@@ -11,7 +11,7 @@ namespace DictionaryService
 {
     public static class WordSuggestion
     {
-        public static List<SuggestionItem> GetSuggestions(string text, int limit = 10)
+        public static Task<List<SuggestionItem>> GetSuggestionsAsync(string text, int limit = 10)
         {
             using (var db = new BingDictContext())
             {
@@ -26,7 +26,7 @@ namespace DictionaryService
                         Chinese = x.AutoSugg,
                         Frequency = (long)x.Freq
                     })
-                    .ToList();
+                    .ToListAsync();
                 return result;
             }
         }

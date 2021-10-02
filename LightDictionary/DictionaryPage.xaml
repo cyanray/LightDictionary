@@ -46,11 +46,11 @@
                             x:Uid="DictionarySearchBox"
                             Grid.Row="1"
                             VerticalAlignment="Top"
-                            Text="{x:Bind SearchText}"
-                            TextChanged="AutoSuggestBox_TextChanged"
+                            Text="{x:Bind SearchText, Mode=TwoWay}"
                             QueryIcon="Find"
-                            QuerySubmitted="AutoSuggestBox_QuerySubmitted"
-                            SuggestionChosen="AutoSuggestBox_SuggestionChosen">
+                            UpdateTextOnSelect="False"
+                            SuggestionChosen="AutoSuggestBox_SuggestionChosen"
+                            QuerySubmitted="AutoSuggestBox_QuerySubmitted">
                 <AutoSuggestBox.ItemTemplate>
                     <DataTemplate x:DataType="models:SuggestionItem">
                         <Grid ColumnSpacing="5">

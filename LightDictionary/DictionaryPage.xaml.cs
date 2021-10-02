@@ -3,9 +3,12 @@ using DictionaryService.Models;
 using LightDictionary.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -32,36 +35,60 @@ namespace LightDictionary
         public DictionaryPage()
         {
             this.InitializeComponent();
-        }
 
-        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-        {
-            if (args.Reason != AutoSuggestionBoxTextChangeReason.UserInput) return;
-            var searchText = sender.Text.ToLower();
-            var suitableItems = WordSuggestion.GetSuggestions(searchText)
-                                              .ToList();
-            if (suitableItems.Count == 0)
-            {
-                suitableItems.Add(new SuggestionItem() { Word = "No results found" });
-            }
-            sender.ItemsSource = suitableItems;
-        }
+            var changed =
+                Observable.FromEventPattern<
+                    TypedEventHandler<AutoSuggestBox, AutoSuggestBoxTextChangedEventArgs>,
+                    AutoSuggestBox,
+                    AutoSuggestBoxTextChangedEventArgs>(
+                    handler => DictionarySearchBox.TextChanged += handler,
+                    handler => DictionarySearchBox.TextChanged -= handler);
 
+            var input = changed
+                .DistinctUntilChanged(x => x.Sender.Text)
+                .Throttle(TimeSpan.FromMilliseconds(300));
+
+            var notUserInput = input
+                .ObserveOnDispatcher(Windows.UI.Core.CoreDispatcherPriority.Normal)
+                .Where(x => x.EventArgs.Reason != AutoSuggestionBoxTextChangeReason.UserInput)
+                .Select(x => Task.FromResult<List<SuggestionItem>>(null));
+
+            var userInput = input
+                .ObserveOnDispatcher(Windows.UI.Core.CoreDispatcherPriority.Normal)
+                .Where(x => x.EventArgs.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+                .Where(x => !string.IsNullOrEmpty(x.Sender.Text))
+                .Select(x => WordSuggestion.GetSuggestionsAsync(x.Sender.Text, 8));
+
+            var merge = Observable
+                .Merge(notUserInput, userInput)
+                .Switch();
+
+            merge
+                .ObserveOnDispatcher(Windows.UI.Core.CoreDispatcherPriority.Normal)
+                .Subscribe(suggestions =>
+                {
+                    if(suggestions == null) return;
+                    if (suggestions.Count == 0)
+                    {
+                        suggestions.Add(new SuggestionItem() { Word = "No results found" });
+                    }
+                    DictionarySearchBox.ItemsSource = suggestions;
+                });
+        }
 
         // Handle user selecting an item, in our case just output the selected item.
         private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
-            if (args.SelectedItem is SuggestionItem item)
-            {
-                sender.Text = item.Word;
-            }
+            var item = args.SelectedItem as SuggestionItem;
+            sender.Text = item.Word;
         }
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
+            if (string.IsNullOrEmpty(SearchText.Trim())) return;
             var param = new DictionaryNavParam()
             {
-                SearchText = sender.Text
+                SearchText = SearchText
             };
             _ = MainPage.MainPageFrame.Navigate(typeof(DictionaryPage), param);
         }
@@ -70,7 +97,6 @@ namespace LightDictionary
         {
             if (e.Parameter is DictionaryNavParam param)
             {
-                if (string.IsNullOrEmpty(param.SearchText?.Trim())) return;
                 SearchText = param.SearchText;
                 HasSearchResult = true;
                 VisualStateManager.GoToState(this, HasSearchResultState.Name, false);
