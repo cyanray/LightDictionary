@@ -213,6 +213,12 @@
   <ItemGroup>
     <None Include="LightDictionary_TemporaryKey.pfx" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DictionaryService\DictionaryService.csproj">
+      <Project>{14226010-9acd-4807-b925-d78c6479e427}</Project>
+      <Name>DictionaryService</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

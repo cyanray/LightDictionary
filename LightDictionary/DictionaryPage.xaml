@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:models="using:DictionaryService.Models"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -15,16 +16,20 @@
     <ScrollViewer>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="SearchResultState">
-                <VisualState x:Name="HasSearchResult" >
+                <VisualState x:Name="HasSearchResultState" >
                     <VisualState.Setters>
                         <Setter Target="SearchBoxPlayground.Height" Value="{StaticResource GridLengthAuto}" />
                         <Setter Target="SearchResultPlayground.Height" Value="{StaticResource GridLengthStar}" />
+                        <Setter Target="LocalResultExpander.Visibility" Value="Visible" />
+                        <Setter Target="BingResultExpander.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState x:Name="WithoutSearchResult">
+                <VisualState x:Name="WithoutSearchResultState">
                     <VisualState.Setters>
                         <Setter Target="SearchBoxPlayground.Height" Value="{StaticResource GridLengthStar}" />
                         <Setter Target="SearchResultPlayground.Height" Value="{StaticResource GridLengthAuto}" />
+                        <Setter Target="LocalResultExpander.Visibility" Value="Collapsed" />
+                        <Setter Target="BingResultExpander.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -40,11 +45,30 @@
             <AutoSuggestBox x:Name="DictionarySearchBox" 
                             x:Uid="DictionarySearchBox"
                             Grid.Row="1"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Text="{x:Bind SearchText}"
                             TextChanged="AutoSuggestBox_TextChanged"
                             QueryIcon="Find"
                             QuerySubmitted="AutoSuggestBox_QuerySubmitted"
-                            SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+                            SuggestionChosen="AutoSuggestBox_SuggestionChosen">
+                <AutoSuggestBox.ItemTemplate>
+                    <DataTemplate x:DataType="models:SuggestionItem">
+                        <Grid ColumnSpacing="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock HorizontalAlignment="Left" Text="{x:Bind Path=Word}"/>
+                            <TextBlock 
+                                Grid.Column="1"
+                                HorizontalAlignment="Right" 
+                                MaxWidth="200" 
+                                TextTrimming="CharacterEllipsis" 
+                                Text="{x:Bind Path=Chinese}"/>
+                        </Grid>
+                    </DataTemplate>
+                </AutoSuggestBox.ItemTemplate>
+            </AutoSuggestBox>
             <StackPanel Spacing="10" Grid.Row="2">
                 <!--本地词典结果-->
                 <muxc:Expander x:Name="LocalResultExpander" 

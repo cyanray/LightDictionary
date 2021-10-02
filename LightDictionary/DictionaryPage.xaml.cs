@@ -1,4 +1,6 @@
-﻿using LightDictionary.Models;
+﻿using DictionaryService;
+using DictionaryService.Models;
+using LightDictionary.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,37 +25,24 @@ namespace LightDictionary
     /// </summary>
     public sealed partial class DictionaryPage : Page
     {
+        private bool HasSearchResult = false;
+
+        public string SearchText { get; set; }
+
         public DictionaryPage()
         {
             this.InitializeComponent();
         }
 
-        // List of cats
-        private List<string> Cats = new List<string>()
-        {
-            "Abyssinian",
-            "Aegean",
-            "American Bobtail"
-        };
-
         private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            var suitableItems = new List<string>();
-            var splitText = sender.Text.ToLower().Split(" ");
-            foreach (var cat in Cats)
-            {
-                var found = splitText.All((key) =>
-                {
-                    return cat.ToLower().Contains(key);
-                });
-                if (found)
-                {
-                    suitableItems.Add(cat);
-                }
-            }
+            if (args.Reason != AutoSuggestionBoxTextChangeReason.UserInput) return;
+            var searchText = sender.Text.ToLower();
+            var suitableItems = WordSuggestion.GetSuggestions(searchText)
+                                              .ToList();
             if (suitableItems.Count == 0)
             {
-                suitableItems.Add("No results found");
+                suitableItems.Add(new SuggestionItem() { Word = "No results found" });
             }
             sender.ItemsSource = suitableItems;
         }
@@ -62,7 +51,10 @@ namespace LightDictionary
         // Handle user selecting an item, in our case just output the selected item.
         private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
-            // SuggestionOutput.Text = args.SelectedItem.ToString();
+            if (args.SelectedItem is SuggestionItem item)
+            {
+                sender.Text = item.Word;
+            }
         }
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
@@ -79,10 +71,9 @@ namespace LightDictionary
             if (e.Parameter is DictionaryNavParam param)
             {
                 if (string.IsNullOrEmpty(param.SearchText?.Trim())) return;
-                DictionarySearchBox.Text = param.SearchText;
-                VisualStateManager.GoToState(this, HasSearchResult.Name, false);
-                LocalResultExpander.Visibility = Visibility.Visible;
-                BingResultExpander.Visibility = Visibility = Visibility.Visible;
+                SearchText = param.SearchText;
+                HasSearchResult = true;
+                VisualStateManager.GoToState(this, HasSearchResultState.Name, false);
                 // TODO: Loading search result...
             }
             base.OnNavigatedTo(e);
