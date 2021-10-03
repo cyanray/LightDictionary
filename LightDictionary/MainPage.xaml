@@ -11,6 +11,13 @@
     <Page.Resources>
         <!--This top margin is the height of the custom TitleBar-->
         <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
+
+        <SolidColorBrush x:Key="ButtonForegroundColor" Color="{ThemeResource SystemBaseHighColor}" />
+        <SolidColorBrush x:Key="ButtonInactiveForegroundBrush" Color="{ThemeResource SystemChromeDisabledLowColor}" />
+        <SolidColorBrush x:Key="ButtonHoverBackgroundBrush" Color="{ThemeResource SystemListLowColor}" />
+        <SolidColorBrush x:Key="ButtonHoverForegroundBrush" Color="{ThemeResource SystemBaseHighColor}" />
+        <SolidColorBrush x:Key="ButtonPressedBackgroundBrush" Color="{ThemeResource SystemListMediumColor}" />
+        <SolidColorBrush x:Key="ButtonPressedForegroundBrush" Color="{ThemeResource SystemBaseHighColor}" />
     </Page.Resources>
     <Grid>
         <VisualStateManager.VisualStateGroups>

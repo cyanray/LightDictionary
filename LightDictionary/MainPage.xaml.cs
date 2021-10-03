@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Media;
 using Microsoft.Toolkit.Uwp.Helpers;
 using Color = Windows.UI.Color;
 using LightDictionary.Utils;
+using Windows.UI;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -124,29 +125,22 @@ namespace LightDictionary
                 return;
             }
 
-            if (ThemeHelper.RootTheme == ElementTheme.Light)
-            {
-                applicationTitleBar.ButtonBackgroundColor = Windows.UI.Colors.Transparent;
-                applicationTitleBar.ButtonForegroundColor = Windows.UI.Colors.Black;
-                applicationTitleBar.ButtonInactiveBackgroundColor = Windows.UI.Colors.Transparent;
-                applicationTitleBar.ButtonInactiveForegroundColor = ColorHelper.ToColor("#FF7A7A7A");
-                applicationTitleBar.ButtonHoverBackgroundColor = ColorHelper.ToColor("#19000000");
-                applicationTitleBar.ButtonHoverForegroundColor = Windows.UI.Colors.Black;
-                applicationTitleBar.ButtonPressedBackgroundColor = ColorHelper.ToColor("#33000000");
-                applicationTitleBar.ButtonPressedForegroundColor = Windows.UI.Colors.Black;
-            }
-            else if (ThemeHelper.RootTheme == ElementTheme.Dark)
-            {
-                applicationTitleBar.ButtonBackgroundColor = Windows.UI.Colors.Transparent;
-                applicationTitleBar.ButtonForegroundColor = Windows.UI.Colors.White;
-                applicationTitleBar.ButtonInactiveBackgroundColor = Windows.UI.Colors.Transparent;
-                applicationTitleBar.ButtonInactiveForegroundColor = ColorHelper.ToColor("#FF858585");
-                applicationTitleBar.ButtonHoverBackgroundColor = ColorHelper.ToColor("#19FFFFFF");
-                applicationTitleBar.ButtonHoverForegroundColor = Windows.UI.Colors.White;
-                applicationTitleBar.ButtonPressedBackgroundColor = ColorHelper.ToColor("#33FFFFFF");
-                applicationTitleBar.ButtonPressedForegroundColor = Windows.UI.Colors.White;
-            }
+            Color bgColor = Colors.Transparent;
+            Color fgColor = ((SolidColorBrush)Resources["ButtonForegroundColor"]).Color;
+            Color inactivefgColor = ((SolidColorBrush)Resources["ButtonInactiveForegroundBrush"]).Color;
+            Color hoverbgColor = ((SolidColorBrush)Resources["ButtonHoverBackgroundBrush"]).Color;
+            Color hoverfgColor = ((SolidColorBrush)Resources["ButtonHoverForegroundBrush"]).Color;
+            Color pressedbgColor = ((SolidColorBrush)Resources["ButtonPressedBackgroundBrush"]).Color;
+            Color pressedfgColor = ((SolidColorBrush)Resources["ButtonPressedForegroundBrush"]).Color;
 
+            applicationTitleBar.ButtonBackgroundColor = bgColor;
+            applicationTitleBar.ButtonForegroundColor = fgColor;
+            applicationTitleBar.ButtonInactiveBackgroundColor = bgColor;
+            applicationTitleBar.ButtonInactiveForegroundColor = inactivefgColor;
+            applicationTitleBar.ButtonHoverBackgroundColor = hoverbgColor;
+            applicationTitleBar.ButtonHoverForegroundColor = hoverfgColor;
+            applicationTitleBar.ButtonPressedBackgroundColor = pressedbgColor;
+            applicationTitleBar.ButtonPressedForegroundColor = pressedfgColor;
         }
 
         // Update the TitleBar content layout depending on NavigationView DisplayMode
