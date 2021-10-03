@@ -6,12 +6,30 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:models="using:DictionaryService.Models"
+    xmlns:models="using:DictionaryService.Models" 
+    xmlns:utils="using:LightDictionary.Utils"
     mc:Ignorable="d">
 
     <Page.Resources>
         <GridLength x:Key="GridLengthStar">*</GridLength>
+        
         <GridLength x:Key="GridLengthAuto">Auto</GridLength>
+        
+        <DataTemplate x:Name="WordDefinitionTemplate" x:DataType="models:WordDefinition">
+            <StackPanel Spacing="10" Orientation="Horizontal">
+                <Grid Background="{StaticResource SystemAccentColor}">
+                    <TextBlock Padding="3,2" 
+                               Text="{x:Bind PartOfSpeechDisplay}" 
+                               Foreground="White" 
+                               Style="{StaticResource BodyTextBlockStyle}"
+                               IsTextSelectionEnabled="True">
+                    </TextBlock>
+                </Grid>
+                <TextBlock Text="{x:Bind Definition}" IsTextSelectionEnabled="True"></TextBlock>
+            </StackPanel>
+        </DataTemplate>
+
+        <utils:HideWhenEmptyOrNullConverter x:Key="HideWhenEmptyOrNullConverter" />
     </Page.Resources>
     <ScrollViewer>
         <VisualStateManager.VisualStateGroups>
@@ -102,13 +120,17 @@
                     </muxc:Expander.Header>
                     <muxc:Expander.Content>
                         <StackPanel Spacing="8">
-                            <TextBlock Text="Welcome" FontSize="26"></TextBlock>
+                            <TextBlock Text="{x:Bind SearchText, Mode=OneWay}" 
+                                       FontSize="30" 
+                                       IsTextSelectionEnabled="True">
+                            </TextBlock>
                             <StackPanel Spacing="5" Orientation="Horizontal">
-                                <Button VerticalAlignment="Center">
+                                <Button VerticalAlignment="Center"
+                                        Visibility="{x:Bind LocalResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <StackPanel Spacing="2" Orientation="Horizontal">
                                         <TextBlock Text="US" VerticalAlignment="Center"></TextBlock>
                                         <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="ˈwelkəm" VerticalAlignment="Center"></TextBlock>
+                                        <TextBlock Text="{x:Bind LocalResult.UsPronunciation}" VerticalAlignment="Center"></TextBlock>
                                         <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
                                         <FontIcon
                                       VerticalAlignment="Center"
@@ -117,11 +139,12 @@
                                     </StackPanel>
                                 </Button>
 
-                                <Button VerticalAlignment="Center">
+                                <Button VerticalAlignment="Center"
+                                        Visibility="{x:Bind LocalResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <StackPanel Spacing="2" Orientation="Horizontal">
                                         <TextBlock Text="UK" VerticalAlignment="Center"></TextBlock>
                                         <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="'welkəm" VerticalAlignment="Center"></TextBlock>
+                                        <TextBlock Text="{x:Bind LocalResult.UkPronunciation}" VerticalAlignment="Center"></TextBlock>
                                         <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
                                         <FontIcon
                                       VerticalAlignment="Center"
@@ -130,11 +153,12 @@
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
-                            <StackPanel Spacing="10" Orientation="Horizontal">
-                                <TextBlock Text="n." Style="{StaticResource BodyTextBlockStyle}"></TextBlock>
-                                <TextBlock Text="欢迎；迎接；接待；接受"></TextBlock>
-                            </StackPanel>
-
+                            <ListView HorizontalAlignment="Left"
+                                      SelectionMode="None"
+                                      ItemsSource="{x:Bind LocalResult.WordDefinitions}"
+                                      ItemTemplate="{StaticResource WordDefinitionTemplate}">
+                            </ListView>
+                            
                         </StackPanel>
                     </muxc:Expander.Content>
                 </muxc:Expander>

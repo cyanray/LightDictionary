@@ -1,6 +1,7 @@
 ﻿using DictionaryService;
 using DictionaryService.Models;
 using LightDictionary.Models;
+using LightDictionary.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,6 +32,8 @@ namespace LightDictionary
         private bool HasSearchResult = false;
 
         public string SearchText { get; set; }
+
+        public DictItem LocalResult { get; set; }
 
         public DictionaryPage()
         {
@@ -93,7 +96,7 @@ namespace LightDictionary
             _ = MainPage.MainPageFrame.Navigate(typeof(DictionaryPage), param);
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter is DictionaryNavParam param)
             {
@@ -101,6 +104,8 @@ namespace LightDictionary
                 HasSearchResult = true;
                 VisualStateManager.GoToState(this, HasSearchResultState.Name, false);
                 // TODO: Loading search result...
+                var result = await Constants.BingLocalDictionaryService.SearchAsync(SearchText);
+                LocalResult = result;
             }
             base.OnNavigatedTo(e);
         }

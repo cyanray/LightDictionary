@@ -13,22 +13,20 @@ namespace DictionaryService
     {
         public static Task<List<SuggestionItem>> GetSuggestionsAsync(string text, int limit = 10)
         {
-            using (var db = new BingDictContext())
-            {
-                var result = db.Dict
-                    .AsNoTracking()
-                    .Where(x => EF.Functions.Like(x.Word, $"{text}%"))
-                    .Take(limit)
-                    .OrderByDescending(x => x.Freq)
-                    .Select(x => new SuggestionItem()
-                    {
-                        Word = x.Word,
-                        Chinese = x.AutoSugg,
-                        Frequency = (long)x.Freq
-                    })
-                    .ToListAsync();
-                return result;
-            }
+            var result = Utils.BingDictDbContext.Dict
+                .AsNoTracking()
+                .Where(x => EF.Functions.Like(x.Word, $"{text}%"))
+                .Take(limit)
+                .OrderByDescending(x => x.Freq)
+                .Select(x => new SuggestionItem()
+                {
+                    Word = x.Word,
+                    Chinese = x.AutoSugg,
+                    Frequency = (long)x.Freq
+                })
+                .ToListAsync();
+            return result;
+
         }
     }
 }

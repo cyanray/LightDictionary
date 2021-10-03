@@ -120,6 +120,8 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BingLocalDictionaryService.cs" />
+    <Compile Include="IDictionaryService.cs" />
     <Compile Include="Models\BingDictContext.cs" />
     <Compile Include="Models\Dict.cs" />
     <Compile Include="Models\SuggestionItem.cs" />
