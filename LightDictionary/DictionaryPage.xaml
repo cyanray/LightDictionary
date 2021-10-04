@@ -64,7 +64,7 @@
             <AutoSuggestBox x:Name="DictionarySearchBox" 
                             x:Uid="DictionarySearchBox"
                             Grid.Row="1"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Top"
                             Text="{x:Bind SearchText, Mode=TwoWay}"
                             QueryIcon="Find"
                             UpdateTextOnSelect="False"
@@ -122,7 +122,7 @@
 
                     <muxc:Expander.Content>
                         <StackPanel Spacing="8">
-                            <TextBlock Text="{x:Bind SearchText, Mode=OneWay}" 
+                            <TextBlock Text="{x:Bind SearchText}" 
                                        FontSize="30" 
                                        IsTextSelectionEnabled="True" />
                             <StackPanel Spacing="5" Orientation="Horizontal">

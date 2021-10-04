@@ -26,7 +26,16 @@ namespace DictionaryService
                 })
                 .ToListAsync();
             return result;
+        }
 
+        /// <summary>
+        /// 确保 BingDictDbContext 已经初始化，避免第一次查询时卡顿。
+        /// </summary>
+        /// <returns></returns>
+        public static bool Init()
+        {
+            Utils.BingDictDbContext.Database.IsSqlite();
+            return true;
         }
     }
 }

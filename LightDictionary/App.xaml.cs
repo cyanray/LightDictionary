@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DictionaryService;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -42,6 +43,8 @@ namespace LightDictionary
         {
             var settings = new AppSettings();
             ApplicationLanguages.PrimaryLanguageOverride = settings.PrimaryLanguageOverride;
+
+            WordSuggestion.Init();
 
             Frame rootFrame = Window.Current.Content as Frame;
 

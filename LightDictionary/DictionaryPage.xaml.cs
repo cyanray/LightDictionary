@@ -21,7 +21,7 @@ namespace LightDictionary
     /// </summary>
     public sealed partial class DictionaryPage : Page
     {
-        private bool HasSearchResult = false;
+        public bool HasSearchResult { get; private set; }
 
         public string SearchText { get; set; }
 
