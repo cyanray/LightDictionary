@@ -27,9 +27,21 @@ namespace LightDictionary
 
         public DictItem LocalResult { get; set; }
 
+        public List<SuggestionItem> SearchHistoryItems { get; set; }
+
         public DictionaryPage()
         {
             this.InitializeComponent();
+
+            SearchHistoryItems = new List<SuggestionItem>()
+            {
+                new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" },
+                new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" },
+                new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" },
+                new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" },
+                new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" },
+                new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" }
+            };
 
             var changed =
                 Observable.FromEventPattern<
@@ -80,7 +92,7 @@ namespace LightDictionary
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            if (string.IsNullOrEmpty(SearchText.Trim())) return;
+            if (string.IsNullOrEmpty(SearchText?.Trim())) return;
             var param = new DictionaryNavParam()
             {
                 SearchText = SearchText
@@ -101,5 +113,20 @@ namespace LightDictionary
             base.OnNavigatedTo(e);
         }
 
+        private void SearchHistoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //Assign DataTemplate for selected items
+            foreach (var item in e.AddedItems)
+            {
+                ListViewItem lvi = (sender as ListView).ContainerFromItem(item) as ListViewItem;
+                lvi.ContentTemplate = (DataTemplate)this.Resources["HistoryItemExpanded"];
+            }
+            //Remove DataTemplate for unselected items
+            foreach (var item in e.RemovedItems)
+            {
+                ListViewItem lvi = (sender as ListView).ContainerFromItem(item) as ListViewItem;
+                lvi.ContentTemplate = (DataTemplate)this.Resources["HistoryItemCollapsed"];
+            }
+        }
     }
 }

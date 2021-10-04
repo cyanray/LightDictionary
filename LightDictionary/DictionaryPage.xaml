@@ -27,6 +27,17 @@
             </StackPanel>
         </DataTemplate>
 
+        <DataTemplate x:Name="HistoryItemCollapsed"  x:DataType="models:SuggestionItem">
+            <TextBlock Text="{x:Bind Word}" />
+        </DataTemplate>
+
+        <DataTemplate x:Name="HistoryItemExpanded"  x:DataType="models:SuggestionItem">
+            <StackPanel Spacing="2" Padding="0,6">
+                <TextBlock Text="{x:Bind Word}" />
+                <TextBlock Text="{x:Bind Chinese}" />
+            </StackPanel>
+        </DataTemplate>
+
         <utils:HideWhenEmptyOrNullConverter x:Key="HideWhenEmptyOrNullConverter" />
     </Page.Resources>
 
@@ -35,18 +46,20 @@
             <VisualStateGroup x:Name="SearchResultState">
                 <VisualState x:Name="HasSearchResultState" >
                     <VisualState.Setters>
-                        <Setter Target="SearchBoxPlayground.Height" Value="{StaticResource GridLengthAuto}" />
-                        <Setter Target="SearchResultPlayground.Height" Value="{StaticResource GridLengthStar}" />
+                        <!--<Setter Target="SearchBoxPlayground.Height" Value="{StaticResource GridLengthAuto}" />-->
+                        <!--<Setter Target="SearchResultPlayground.Height" Value="{StaticResource GridLengthStar}" />-->
                         <Setter Target="LocalResultExpander.Visibility" Value="Visible" />
                         <Setter Target="BingResultExpander.Visibility" Value="Visible" />
+                        <Setter Target="SearchHistoryPanel.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="WithoutSearchResultState">
                     <VisualState.Setters>
-                        <Setter Target="SearchBoxPlayground.Height" Value="{StaticResource GridLengthStar}" />
-                        <Setter Target="SearchResultPlayground.Height" Value="{StaticResource GridLengthAuto}" />
+                        <!--<Setter Target="SearchBoxPlayground.Height" Value="{StaticResource GridLengthStar}" />-->
+                        <!--<Setter Target="SearchResultPlayground.Height" Value="{StaticResource GridLengthAuto}" />-->
                         <Setter Target="LocalResultExpander.Visibility" Value="Collapsed" />
                         <Setter Target="BingResultExpander.Visibility" Value="Collapsed" />
+                        <Setter Target="SearchHistoryPanel.Visibility" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -55,8 +68,8 @@
         <Grid x:Name="Playground" RowSpacing="10" Margin="30">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition x:Name="SearchBoxPlayground" Height="*"/>
-                <RowDefinition x:Name="SearchResultPlayground" Height="Auto"/>
+                <RowDefinition x:Name="SearchBoxPlayground" Height="Auto"/>
+                <RowDefinition x:Name="SearchResultPlayground" Height="*"/>
             </Grid.RowDefinitions>
 
             <TextBlock x:Uid="DictionaryPageTitle" FontSize="26"/>
@@ -88,6 +101,31 @@
                 </AutoSuggestBox.ItemTemplate>
             </AutoSuggestBox>
 
+            <StackPanel x:Name="SearchHistoryPanel" Grid.Row="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="搜索历史"></TextBlock>
+                    <Button Grid.Column="1" 
+                            Visibility="Visible" 
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource FontButtonStyle}">
+                        <FontIcon HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  FontSize="14"
+                                  FontFamily="{StaticResource SegoeFluentIcons}"
+                                  Glyph="&#xE894;"/>
+                    </Button>
+                </Grid>
+                <ListView x:Name="SearchHistoryList"
+                          ItemTemplate="{StaticResource HistoryItemCollapsed}"
+                          ItemsSource="{x:Bind SearchHistoryItems}"
+                          SelectionChanged="SearchHistoryList_SelectionChanged">
+                </ListView>
+            </StackPanel>
+            
             <StackPanel Spacing="10" Grid.Row="2">
                 <!--本地词典结果-->
                 <muxc:Expander x:Name="LocalResultExpander" 
