@@ -24,8 +24,8 @@
                 </muxc:InfoBar.ActionButton>
             </muxc:InfoBar>
             <TextBlock x:Uid="SettingsAppearance"
-                           Style="{StaticResource BodyStrongTextBlockStyle}"
-                           AutomationProperties.HeadingLevel="Level1"/>
+                       Style="{StaticResource BodyStrongTextBlockStyle}"
+                       AutomationProperties.HeadingLevel="Level1"/>
             
             <ComboBox x:Name="LanguagePicker" 
                       x:Uid="LanguagePicker"
@@ -37,12 +37,12 @@
             </ComboBox>
 
             <muxc:Expander x:Name="AppThemeExpander"
-                               Margin="0,8,0,0"
-                               HorizontalAlignment="Stretch"
-                               VerticalAlignment="Top"
-                               HorizontalContentAlignment="Left"
-                               ExpandDirection="Down"
-                               IsExpanded="False">
+                           Margin="0,8,0,0"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Top"
+                           HorizontalContentAlignment="Left"
+                           ExpandDirection="Down"
+                           IsExpanded="False">
                 <muxc:Expander.Header>
                     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
@@ -51,36 +51,36 @@
                         </Grid.ColumnDefinitions>
 
                         <FontIcon Margin="0,0,12,0"
-                                      VerticalAlignment="Center"
-                                      Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                      FontFamily="{StaticResource SegoeFluentIcons}"
-                                      FontSize="16"
-                                      Glyph="&#xE790;"/>
+                                  VerticalAlignment="Center"
+                                  Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                  FontFamily="{StaticResource SegoeFluentIcons}"
+                                  FontSize="16"
+                                  Glyph="&#xE790;"/>
 
                         <StackPanel Grid.Column="1"
-                                        Margin="0,12"
-                                        Orientation="Vertical">
+                                    Margin="0,12"
+                                    Orientation="Vertical">
                             <TextBlock x:Uid="SettingsAppThemeTitle" Style="{StaticResource BodyTextBlockStyle}"/>
                             <TextBlock x:Uid="SettingsAppThemeDescription"
-                                           Style="{StaticResource CaptionTextBlockStyle}"
-                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                           TextWrapping="WrapWholeWords"/>
+                                       Style="{StaticResource CaptionTextBlockStyle}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       TextWrapping="WrapWholeWords"/>
                         </StackPanel>
                     </Grid>
                 </muxc:Expander.Header>
                 <muxc:Expander.Content>
                     <muxc:RadioButtons x:Name="ThemeRadioButtons"
-                                           Margin="32,0,0,0"
-                                           SelectionChanged="OnThemeSelectionChanged" >
+                                       Margin="32,0,0,0"
+                                       SelectionChanged="OnThemeSelectionChanged" >
                         <RadioButton x:Name="LightThemeRadioButton"
-                                         x:Uid="LightThemeRadioButton"
-                                         Tag="Light"/>
+                                     x:Uid="LightThemeRadioButton"
+                                     Tag="Light"/>
                         <RadioButton x:Name="DarkThemeRadioButton"
-                                         x:Uid="DarkThemeRadioButton"
-                                         Tag="Dark"/>
+                                     x:Uid="DarkThemeRadioButton"
+                                     Tag="Dark"/>
                         <RadioButton x:Name="SystemThemeRadioButton"
-                                         x:Uid="SystemThemeRadioButton"
-                                         Tag="Default"/>
+                                     x:Uid="SystemThemeRadioButton"
+                                     Tag="Default"/>
                     </muxc:RadioButtons>
                 </muxc:Expander.Content>
             </muxc:Expander>

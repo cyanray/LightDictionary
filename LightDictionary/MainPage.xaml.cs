@@ -1,13 +1,13 @@
-﻿using Windows.ApplicationModel.Core;
+﻿using LightDictionary.Utils;
+using Windows.ApplicationModel.Core;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Microsoft.Toolkit.Uwp.Helpers;
 using Color = Windows.UI.Color;
-using LightDictionary.Utils;
-using Windows.UI;
+using MUXC = Microsoft.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -18,7 +18,7 @@ namespace LightDictionary
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private Utils.ThemeHelper.ThemeChangedCallbackToken m_rootFrameRequestedThemeCallbackToken;
+        private ThemeHelper.ThemeChangedCallbackToken m_rootFrameRequestedThemeCallbackToken;
 
         public static Frame MainPageFrame;
 
@@ -29,8 +29,8 @@ namespace LightDictionary
 
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
-            titleBar.ButtonBackgroundColor = Windows.UI.Colors.Transparent;
-            titleBar.ButtonInactiveBackgroundColor = Windows.UI.Colors.Transparent;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
             // Hide default title bar.
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
@@ -61,14 +61,14 @@ namespace LightDictionary
         {
             // Register RequestedTheme changed callback to update title bar system button colors.
             m_rootFrameRequestedThemeCallbackToken =
-                Utils.ThemeHelper.RegisterAppThemeChangedCallback(RootFrame_RequestedThemeChanged);
+                ThemeHelper.RegisterAppThemeChangedCallback(RootFrame_RequestedThemeChanged);
 
             SetTitleBarControlColors();
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            Utils.ThemeHelper.
+            ThemeHelper.
                 UnregisterAppThemeChangedCallback(m_rootFrameRequestedThemeCallbackToken);
         }
 
@@ -144,14 +144,14 @@ namespace LightDictionary
         }
 
         // Update the TitleBar content layout depending on NavigationView DisplayMode
-        private void MainNav_DisplayModeChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewDisplayModeChangedEventArgs args)
+        private void MainNav_DisplayModeChanged(MUXC.NavigationView sender, MUXC.NavigationViewDisplayModeChangedEventArgs args)
         {
             const int topIndent = 16;
             const int expandedIndent = 48;
             int minimalIndent = 104;
 
             // If the back button is not visible, reduce the TitleBar content indent.
-            if (MainNav.IsBackButtonVisible.Equals(Microsoft.UI.Xaml.Controls.NavigationViewBackButtonVisible.Collapsed))
+            if (MainNav.IsBackButtonVisible.Equals(MUXC.NavigationViewBackButtonVisible.Collapsed))
             {
                 minimalIndent = 48;
             }
@@ -159,11 +159,11 @@ namespace LightDictionary
             Thickness currMargin = AppTitleBar.Margin;
 
             // Set the TitleBar margin dependent on NavigationView display mode
-            if (sender.PaneDisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.Top)
+            if (sender.PaneDisplayMode == MUXC.NavigationViewPaneDisplayMode.Top)
             {
                 AppTitleBar.Margin = new Thickness(topIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
-            else if (sender.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal)
+            else if (sender.DisplayMode == MUXC.NavigationViewDisplayMode.Minimal)
             {
                 AppTitleBar.Margin = new Thickness(minimalIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
             }
@@ -173,8 +173,7 @@ namespace LightDictionary
             }
         }
 
-        private void MainNav_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender,
-            Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        private void MainNav_ItemInvoked(MUXC.NavigationView sender, MUXC.NavigationViewItemInvokedEventArgs args)
         {
             var item = args.InvokedItemContainer;
             if (item != null)
@@ -191,6 +190,8 @@ namespace LightDictionary
                     case "Note":
                         _ = ContentFrame.Navigate(typeof(NotePage));
                         break;
+                    default:
+                        break;
                 }
             }
             if (args.IsSettingsInvoked)
@@ -200,7 +201,7 @@ namespace LightDictionary
             }
         }
 
-        private void MainNav_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
+        private void MainNav_BackRequested(MUXC.NavigationView sender, MUXC.NavigationViewBackRequestedEventArgs args)
         {
             TryGoBack();
         }
@@ -211,9 +212,11 @@ namespace LightDictionary
 
             // Don't go back if the nav pane is overlayed.
             if (MainNav.IsPaneOpen &&
-                (MainNav.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Compact ||
-                 MainNav.DisplayMode == Microsoft.UI.Xaml.Controls.NavigationViewDisplayMode.Minimal))
+                (MainNav.DisplayMode == MUXC.NavigationViewDisplayMode.Compact ||
+                 MainNav.DisplayMode == MUXC.NavigationViewDisplayMode.Minimal))
+            {
                 return false;
+            }
 
             ContentFrame.GoBack();
             return true;

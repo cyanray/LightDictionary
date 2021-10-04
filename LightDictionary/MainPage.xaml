@@ -9,9 +9,6 @@
     mc:Ignorable="d"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
     <Page.Resources>
-        <!--This top margin is the height of the custom TitleBar-->
-        <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
-
         <SolidColorBrush x:Key="ButtonForegroundColor" Color="{ThemeResource SystemBaseHighColor}" />
         <SolidColorBrush x:Key="ButtonInactiveForegroundBrush" Color="{ThemeResource SystemChromeDisabledLowColor}" />
         <SolidColorBrush x:Key="ButtonHoverBackgroundBrush" Color="{ThemeResource SystemListLowColor}" />
@@ -26,7 +23,7 @@
                 <VisualState x:Name="WindowNotFocused">
                     <VisualState.Setters>
                         <Setter Target="AppTitle.Foreground"
-                            Value="{ThemeResource SystemControlForegroundChromeDisabledLowBrush}" />
+                                Value="{ThemeResource SystemControlForegroundChromeDisabledLowBrush}" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -42,17 +39,17 @@
                 Margin="48,0,0,0">
             <StackPanel Orientation="Horizontal">
                 <Image x:Name="AppFontIcon"
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Center"
-                    Source="Assets/Square44x44Logo.png" 
-                    Width="16" 
-                    Height="16"/>
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"
+                       Source="Assets/Square44x44Logo.png" 
+                       Width="16" 
+                       Height="16"/>
                 <TextBlock x:Name="AppTitle"
-                    x:Uid="AppDisplayName"
-                    VerticalAlignment="Center"
-                    Margin="12, 0, 0, 0"
-                    Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}" />
+                           x:Uid="AppDisplayName"
+                           VerticalAlignment="Center"
+                           Margin="12, 0, 0, 0"
+                           Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"
+                           Style="{StaticResource CaptionTextBlockStyle}" />
             </StackPanel>
         </Border>
         

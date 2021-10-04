@@ -12,9 +12,8 @@
 
     <Page.Resources>
         <GridLength x:Key="GridLengthStar">*</GridLength>
-        
         <GridLength x:Key="GridLengthAuto">Auto</GridLength>
-        
+
         <DataTemplate x:Name="WordDefinitionTemplate" x:DataType="models:WordDefinition">
             <StackPanel Spacing="10" Orientation="Horizontal">
                 <Grid Background="{StaticResource SystemAccentColor}">
@@ -22,15 +21,15 @@
                                Text="{x:Bind PartOfSpeechDisplay}" 
                                Foreground="White" 
                                Style="{StaticResource BodyTextBlockStyle}"
-                               IsTextSelectionEnabled="True">
-                    </TextBlock>
+                               IsTextSelectionEnabled="True" />
                 </Grid>
-                <TextBlock Text="{x:Bind Definition}" IsTextSelectionEnabled="True"></TextBlock>
+                <TextBlock Text="{x:Bind Definition}" IsTextSelectionEnabled="True" />
             </StackPanel>
         </DataTemplate>
 
         <utils:HideWhenEmptyOrNullConverter x:Key="HideWhenEmptyOrNullConverter" />
     </Page.Resources>
+
     <ScrollViewer>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="SearchResultState">
@@ -52,18 +51,20 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
+
         <Grid x:Name="Playground" RowSpacing="10" Margin="30">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition x:Name="SearchBoxPlayground" Height="*"/>
                 <RowDefinition x:Name="SearchResultPlayground" Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock x:Uid="DictionaryPageTitle" FontSize="26"></TextBlock>
+
+            <TextBlock x:Uid="DictionaryPageTitle" FontSize="26"/>
+
             <AutoSuggestBox x:Name="DictionarySearchBox" 
                             x:Uid="DictionarySearchBox"
                             Grid.Row="1"
-                            VerticalAlignment="Top"
+                            VerticalAlignment="Center"
                             Text="{x:Bind SearchText, Mode=TwoWay}"
                             QueryIcon="Find"
                             UpdateTextOnSelect="False"
@@ -77,25 +78,26 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <TextBlock HorizontalAlignment="Left" Text="{x:Bind Path=Word}"/>
-                            <TextBlock 
-                                Grid.Column="1"
-                                HorizontalAlignment="Right" 
-                                MaxWidth="200" 
-                                TextTrimming="CharacterEllipsis" 
-                                Text="{x:Bind Path=Chinese}"/>
+                            <TextBlock Grid.Column="1"
+                                       HorizontalAlignment="Right" 
+                                       MaxWidth="200" 
+                                       TextTrimming="CharacterEllipsis" 
+                                       Text="{x:Bind Path=Chinese}"/>
                         </Grid>
                     </DataTemplate>
                 </AutoSuggestBox.ItemTemplate>
             </AutoSuggestBox>
+
             <StackPanel Spacing="10" Grid.Row="2">
                 <!--本地词典结果-->
                 <muxc:Expander x:Name="LocalResultExpander" 
-                           Visibility="Collapsed"
-                           HorizontalAlignment="Stretch"
-                           VerticalAlignment="Top"
-                           HorizontalContentAlignment="Left"
-                           ExpandDirection="Down"
-                           IsExpanded="True">
+                               Visibility="Collapsed"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Top"
+                               HorizontalContentAlignment="Left"
+                               ExpandDirection="Down"
+                               IsExpanded="True">
+
                     <muxc:Expander.Header>
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
                             <Grid.ColumnDefinitions>
@@ -104,26 +106,25 @@
                             </Grid.ColumnDefinitions>
 
                             <FontIcon Margin="0,0,12,0"
-                                  VerticalAlignment="Center"
-                                  Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                  FontFamily="{StaticResource SegoeFluentIcons}"
-                                  FontSize="16"
-                                  Glyph="&#xE945;"/>
+                                      VerticalAlignment="Center"
+                                      Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                      FontFamily="{StaticResource SegoeFluentIcons}"
+                                      FontSize="16"
+                                      Glyph="&#xE945;"/>
                             <StackPanel Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Margin="0,12"
-                                    Orientation="Vertical">
+                                        VerticalAlignment="Center"
+                                        Margin="0,12"
+                                        Orientation="Vertical">
                                 <TextBlock x:Uid="LocalDictionaryResultHeader" Style="{StaticResource BodyTextBlockStyle}"/>
                             </StackPanel>
-
                         </Grid>
                     </muxc:Expander.Header>
+
                     <muxc:Expander.Content>
                         <StackPanel Spacing="8">
                             <TextBlock Text="{x:Bind SearchText, Mode=OneWay}" 
                                        FontSize="30" 
-                                       IsTextSelectionEnabled="True">
-                            </TextBlock>
+                                       IsTextSelectionEnabled="True" />
                             <StackPanel Spacing="5" Orientation="Horizontal">
                                 <Button VerticalAlignment="Center"
                                         Visibility="{x:Bind LocalResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
@@ -153,12 +154,12 @@
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
+
                             <ListView HorizontalAlignment="Left"
                                       SelectionMode="None"
                                       ItemsSource="{x:Bind LocalResult.WordDefinitions}"
                                       ItemTemplate="{StaticResource WordDefinitionTemplate}">
                             </ListView>
-                            
                         </StackPanel>
                     </muxc:Expander.Content>
                 </muxc:Expander>
