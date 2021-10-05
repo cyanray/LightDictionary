@@ -28,6 +28,8 @@ namespace LightDictionary
 
         public DictItem LocalResult { get; set; }
 
+        public DictItem BingResult { get; set; }
+
         private AppSettings AppSettings = Constants.AppSettings;
 
         public DictionaryPage()
@@ -110,10 +112,13 @@ namespace LightDictionary
             {
                 SearchText = param.SearchText;
                 HasSearchResult = true;
-                VisualStateManager.GoToState(this, HasSearchResultState.Name, false);
+                VisualStateManager.GoToState(this, DisplaySearchResultState.Name, false);
                 var result = await Constants.BingLocalDictionaryService.SearchAsync(SearchText);
                 LocalResult = result;
-                AppSettings.AddSearchHistoryItem(result.Suggestion);
+                if (result != null)
+                {
+                    AppSettings.AddSearchHistoryItem(result.Suggestion);
+                }
             }
             base.OnNavigatedTo(e);
         }

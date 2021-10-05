@@ -13,9 +13,6 @@
     Loaded="Page_Loaded">
 
     <Page.Resources>
-        <GridLength x:Key="GridLengthStar">*</GridLength>
-        <GridLength x:Key="GridLengthAuto">Auto</GridLength>
-
         <DataTemplate x:Name="WordDefinitionTemplate" x:DataType="models:WordDefinition">
             <Grid ColumnSpacing="10">
                 <Grid.ColumnDefinitions>
@@ -61,19 +58,15 @@
     <ScrollViewer>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
-                <VisualState x:Name="HasSearchResultState" >
+                <VisualState x:Name="DisplaySearchResultState" >
                     <VisualState.Setters>
-                        <!--<Setter Target="SearchBoxPlayground.Height" Value="{StaticResource GridLengthAuto}" />-->
-                        <!--<Setter Target="SearchResultPlayground.Height" Value="{StaticResource GridLengthStar}" />-->
                         <Setter Target="LocalResultExpander.Visibility" Value="Visible" />
                         <Setter Target="BingResultExpander.Visibility" Value="Visible" />
                         <Setter Target="SearchHistoryPanel.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState x:Name="NoSearchResultState">
+                <VisualState x:Name="HideSearchResultState">
                     <VisualState.Setters>
-                        <!--<Setter Target="SearchBoxPlayground.Height" Value="{StaticResource GridLengthStar}" />-->
-                        <!--<Setter Target="SearchResultPlayground.Height" Value="{StaticResource GridLengthAuto}" />-->
                         <Setter Target="LocalResultExpander.Visibility" Value="Collapsed" />
                         <Setter Target="BingResultExpander.Visibility" Value="Collapsed" />
                         <Setter Target="SearchHistoryPanel.Visibility" Value="Visible"/>
@@ -95,6 +88,42 @@
                     <VisualState.Setters>
                         <Setter Target="SearchHistoryPanel.Visibility" Value="Collapsed"/>
                         <Setter Target="NoSearchHistoryTips.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup>
+                <VisualState x:Name="HasLocalSearchResultState">
+                    <VisualState.Setters>
+                        <Setter Target="LocalResultContent.Visibility" Value="Visible"/>
+                        <Setter Target="NoLocalSearchResultTips.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NoLocalSearchResultState">
+                    <VisualState.StateTriggers>
+                        <triggers:IsNullOrEmptyStateTrigger Value="{x:Bind LocalResult, Mode=OneWay}"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="LocalResultContent.Visibility" Value="Collapsed"/>
+                        <Setter Target="NoLocalSearchResultTips.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup>
+                <VisualState x:Name="HasBingSearchResultState">
+                    <VisualState.Setters>
+                        <Setter Target="BingResultContent.Visibility" Value="Visible"/>
+                        <Setter Target="NoBingSearchResultTips.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NoBingSearchResultState">
+                    <VisualState.StateTriggers>
+                        <triggers:IsNullOrEmptyStateTrigger Value="{x:Bind BingResult, Mode=OneWay}"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="BingResultContent.Visibility" Value="Collapsed"/>
+                        <Setter Target="NoBingSearchResultTips.Visibility" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -214,45 +243,52 @@
                     </muxc:Expander.Header>
 
                     <muxc:Expander.Content>
-                        <StackPanel Spacing="8">
-                            <TextBlock Text="{x:Bind SearchText}" 
+                        <Grid>
+                            <TextBlock x:Name="NoLocalSearchResultTips" 
+                                       Visibility="Collapsed" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" 
+                                       Text="没有搜索到结果"></TextBlock>
+                            <StackPanel x:Name="LocalResultContent" Spacing="8">
+                                <TextBlock Text="{x:Bind SearchText}" 
                                        FontSize="30" 
                                        IsTextSelectionEnabled="True" />
-                            <StackPanel Spacing="5" Orientation="Horizontal">
-                                <Button VerticalAlignment="Center"
+                                <StackPanel Spacing="5" Orientation="Horizontal">
+                                    <Button VerticalAlignment="Center"
                                         Visibility="{x:Bind LocalResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
-                                    <StackPanel Spacing="2" Orientation="Horizontal">
-                                        <TextBlock Text="US" VerticalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="{x:Bind LocalResult.UsPronunciation}" VerticalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
-                                        <FontIcon
+                                        <StackPanel Spacing="2" Orientation="Horizontal">
+                                            <TextBlock Text="US" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="{x:Bind LocalResult.UsPronunciation}" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
+                                            <FontIcon
                                       VerticalAlignment="Center"
                                       FontFamily="{StaticResource SegoeFluentIcons}"
                                       Glyph="&#xE767;"/>
-                                    </StackPanel>
-                                </Button>
+                                        </StackPanel>
+                                    </Button>
 
-                                <Button VerticalAlignment="Center"
+                                    <Button VerticalAlignment="Center"
                                         Visibility="{x:Bind LocalResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
-                                    <StackPanel Spacing="2" Orientation="Horizontal">
-                                        <TextBlock Text="UK" VerticalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="{x:Bind LocalResult.UkPronunciation}" VerticalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
-                                        <FontIcon
+                                        <StackPanel Spacing="2" Orientation="Horizontal">
+                                            <TextBlock Text="UK" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="{x:Bind LocalResult.UkPronunciation}" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
+                                            <FontIcon
                                       VerticalAlignment="Center"
                                       FontFamily="{StaticResource SegoeFluentIcons}"
                                       Glyph="&#xE767;"/>
-                                    </StackPanel>
-                                </Button>
-                            </StackPanel>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
 
-                            <ListView SelectionMode="None"
+                                <ListView SelectionMode="None"
                                       ItemsSource="{x:Bind LocalResult.WordDefinitions}"
                                       ItemTemplate="{StaticResource WordDefinitionTemplate}">
-                            </ListView>
-                        </StackPanel>
+                                </ListView>
+                            </StackPanel>
+                        </Grid>
                     </muxc:Expander.Content>
                 </muxc:Expander>
 
@@ -261,7 +297,7 @@
                            Visibility="Collapsed"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Top"
-                           HorizontalContentAlignment="Left"
+                           HorizontalContentAlignment="Stretch"
                            ExpandDirection="Down"
                            IsExpanded="False">
                     <muxc:Expander.Header>
@@ -303,42 +339,54 @@
                             </Button>
                         </Grid>
                     </muxc:Expander.Header>
+
                     <muxc:Expander.Content>
-                        <StackPanel Spacing="8">
-                            <TextBlock Text="Welcome" FontSize="26"></TextBlock>
-                            <StackPanel Spacing="5" Orientation="Horizontal">
-                                <Button VerticalAlignment="Center">
-                                    <StackPanel Spacing="2" Orientation="Horizontal">
-                                        <TextBlock Text="US" VerticalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="ˈwelkəm" VerticalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
-                                        <FontIcon
+                        <Grid>
+                            <TextBlock x:Name="NoBingSearchResultTips" 
+                                       Visibility="Collapsed" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" 
+                                       Text="没有搜索到结果"></TextBlock>
+                            <StackPanel x:Name="BingResultContent" Spacing="8">
+                                <TextBlock Text="{x:Bind SearchText}" 
+                                       FontSize="30" 
+                                       IsTextSelectionEnabled="True" />
+                                <StackPanel Spacing="5" Orientation="Horizontal">
+                                    <Button VerticalAlignment="Center"
+                                        Visibility="{x:Bind BingResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                        <StackPanel Spacing="2" Orientation="Horizontal">
+                                            <TextBlock Text="US" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="{x:Bind BingResult.UsPronunciation}" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
+                                            <FontIcon
                                       VerticalAlignment="Center"
                                       FontFamily="{StaticResource SegoeFluentIcons}"
                                       Glyph="&#xE767;"/>
-                                    </StackPanel>
-                                </Button>
+                                        </StackPanel>
+                                    </Button>
 
-                                <Button VerticalAlignment="Center">
-                                    <StackPanel Spacing="2" Orientation="Horizontal">
-                                        <TextBlock Text="UK" VerticalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="'welkəm" VerticalAlignment="Center"></TextBlock>
-                                        <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
-                                        <FontIcon
+                                    <Button VerticalAlignment="Center"
+                                        Visibility="{x:Bind BingResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                        <StackPanel Spacing="2" Orientation="Horizontal">
+                                            <TextBlock Text="UK" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="{x:Bind BingResult.UkPronunciation}" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
+                                            <FontIcon
                                       VerticalAlignment="Center"
                                       FontFamily="{StaticResource SegoeFluentIcons}"
                                       Glyph="&#xE767;"/>
-                                    </StackPanel>
-                                </Button>
-                            </StackPanel>
-                            <StackPanel Spacing="10" Orientation="Horizontal">
-                                <TextBlock Text="n." Style="{StaticResource BodyTextBlockStyle}"></TextBlock>
-                                <TextBlock Text="欢迎；迎接；接待；接受"></TextBlock>
-                            </StackPanel>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
 
-                        </StackPanel>
+                                <ListView SelectionMode="None"
+                                      ItemsSource="{x:Bind BingResult.WordDefinitions}"
+                                      ItemTemplate="{StaticResource WordDefinitionTemplate}">
+                                </ListView>
+                            </StackPanel>
+                        </Grid>
                     </muxc:Expander.Content>
                 </muxc:Expander>
 
