@@ -45,8 +45,8 @@
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Center"
                        Source="Assets/Square44x44Logo.png" 
-                       Width="24" 
-                       Height="24"/>
+                       Width="20" 
+                       Height="20"/>
                 <TextBlock x:Name="AppTitle"
                            x:Uid="AppDisplayName"
                            VerticalAlignment="Center"
