@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -35,7 +36,7 @@ namespace LightDictionary
 
             SearchHistoryItems = new List<SuggestionItem>()
             {
-                new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" },
+                new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;开心;愉快;快乐;开心;愉快;快乐;开心;愉快;快乐;开心;愉快;快乐;开心;愉快;快乐;开心;愉快;快乐;开心;愉快;快乐;" },
                 new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" },
                 new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" },
                 new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" },
@@ -97,6 +98,11 @@ namespace LightDictionary
             {
                 SearchText = SearchText
             };
+            SearchAction(param);
+        }
+
+        private static void SearchAction(DictionaryNavParam param)
+        {
             _ = MainPage.MainPageFrame.Navigate(typeof(DictionaryPage), param);
         }
 
@@ -127,6 +133,24 @@ namespace LightDictionary
                 ListViewItem lvi = (sender as ListView).ContainerFromItem(item) as ListViewItem;
                 lvi.ContentTemplate = (DataTemplate)this.Resources["HistoryItemCollapsed"];
             }
+        }
+
+        private void SearchHistoryList_RightTapped(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
+        {
+            ListView listView = (ListView)sender;
+            var item = (SuggestionItem)((FrameworkElement)e.OriginalSource).DataContext;
+            listView.SelectedItem = item;
+            SearhHistoryMenuFlyout.ShowAt(listView, e.GetPosition(listView));
+        }
+
+        private void SearchHistoryList_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
+        {
+            var item = (SuggestionItem)((FrameworkElement)e.OriginalSource).DataContext;
+            var param = new DictionaryNavParam()
+            {
+                SearchText = item.Word
+            };
+            SearchAction(param);
         }
     }
 }

@@ -15,26 +15,41 @@
         <GridLength x:Key="GridLengthAuto">Auto</GridLength>
 
         <DataTemplate x:Name="WordDefinitionTemplate" x:DataType="models:WordDefinition">
-            <StackPanel Spacing="10" Orientation="Horizontal">
-                <Grid Background="{StaticResource SystemAccentColor}">
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" VerticalAlignment="Center" Background="{StaticResource SystemAccentColor}">
                     <TextBlock Padding="3,2" 
                                Text="{x:Bind PartOfSpeechDisplay}" 
                                Foreground="White" 
                                Style="{StaticResource BodyTextBlockStyle}"
                                IsTextSelectionEnabled="True" />
                 </Grid>
-                <TextBlock Text="{x:Bind Definition}" IsTextSelectionEnabled="True" />
-            </StackPanel>
+                <Grid Grid.Column="1">
+                    <TextBlock Text="{x:Bind Definition}" 
+                               TextTrimming="CharacterEllipsis"
+                               TextWrapping="Wrap" 
+                               IsTextSelectionEnabled="True" />
+                </Grid>
+            </Grid>
         </DataTemplate>
 
         <DataTemplate x:Name="HistoryItemCollapsed"  x:DataType="models:SuggestionItem">
-            <TextBlock Text="{x:Bind Word}" />
+            <Grid>
+                <TextBlock Text="{x:Bind Word}" />
+            </Grid>
         </DataTemplate>
 
         <DataTemplate x:Name="HistoryItemExpanded"  x:DataType="models:SuggestionItem">
             <StackPanel Spacing="2" Padding="0,6">
                 <TextBlock Text="{x:Bind Word}" />
-                <TextBlock Text="{x:Bind Chinese}" />
+                <TextBlock Text="{x:Bind Chinese}" 
+                           TextWrapping="Wrap" 
+                           TextTrimming="CharacterEllipsis"
+                           FontSize="12"
+                           Foreground="Gray"/>
             </StackPanel>
         </DataTemplate>
 
@@ -101,13 +116,15 @@
                 </AutoSuggestBox.ItemTemplate>
             </AutoSuggestBox>
 
-            <StackPanel x:Name="SearchHistoryPanel" Grid.Row="2">
-                <Grid>
+            <StackPanel Grid.Row="2" Margin="0,10" x:Name="SearchHistoryPanel">
+                <Grid >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="搜索历史"></TextBlock>
+                    <StackPanel Grid.Column="0" Spacing="5" Orientation="Horizontal">
+                        <TextBlock FontSize="15" Text="查询历史" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
                     <Button Grid.Column="1" 
                             Visibility="Visible" 
                             HorizontalAlignment="Right"
@@ -120,19 +137,29 @@
                     </Button>
                 </Grid>
                 <ListView x:Name="SearchHistoryList"
+                          SelectionMode="Single"
                           ItemTemplate="{StaticResource HistoryItemCollapsed}"
                           ItemsSource="{x:Bind SearchHistoryItems}"
-                          SelectionChanged="SearchHistoryList_SelectionChanged">
+                          SelectionChanged="SearchHistoryList_SelectionChanged"
+                          DoubleTapped="SearchHistoryList_DoubleTapped"
+                          RightTapped="SearchHistoryList_RightTapped">
+                    <ListView.Resources>
+                        <MenuFlyout x:Name="SearhHistoryMenuFlyout">
+                            <!--<MenuFlyoutItem Text="Delete" Command="{Binding DataContext.DeleteCommand, ElementName=contentGrid}" CommandParameter="{Binding}"  />-->
+                            <MenuFlyoutItem x:Name="Search" Text="Search" Icon="Find"/>
+                            <MenuFlyoutItem x:Name="Delete" Text="Delete" Icon="Delete"/>
+                        </MenuFlyout>
+                    </ListView.Resources>
                 </ListView>
             </StackPanel>
-            
+
             <StackPanel Spacing="10" Grid.Row="2">
                 <!--本地词典结果-->
                 <muxc:Expander x:Name="LocalResultExpander" 
                                Visibility="Collapsed"
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Top"
-                               HorizontalContentAlignment="Left"
+                               HorizontalContentAlignment="Stretch"
                                ExpandDirection="Down"
                                IsExpanded="True">
 
@@ -193,8 +220,7 @@
                                 </Button>
                             </StackPanel>
 
-                            <ListView HorizontalAlignment="Left"
-                                      SelectionMode="None"
+                            <ListView SelectionMode="None"
                                       ItemsSource="{x:Bind LocalResult.WordDefinitions}"
                                       ItemTemplate="{StaticResource WordDefinitionTemplate}">
                             </ListView>
