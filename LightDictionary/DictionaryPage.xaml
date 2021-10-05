@@ -48,7 +48,8 @@
                            TextWrapping="Wrap" 
                            TextTrimming="CharacterEllipsis"
                            FontSize="12"
-                           Foreground="Gray"/>
+                           Foreground="Gray"
+                           Visibility="{x:Bind Chinese, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}"/>
             </StackPanel>
         </DataTemplate>
 
@@ -181,7 +182,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Spacing="5" Orientation="Horizontal">
-                        <TextBlock FontSize="15" Text="查询历史" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock FontSize="15" Text="查询历史" VerticalAlignment="Center" Style="{StaticResource BodyStrongTextBlockStyle}"></TextBlock>
                     </StackPanel>
                     <Button Grid.Column="1" 
                             HorizontalAlignment="Right"

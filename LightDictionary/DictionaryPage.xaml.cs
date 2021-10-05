@@ -119,6 +119,10 @@ namespace LightDictionary
                 {
                     AppSettings.AddSearchHistoryItem(result.Suggestion);
                 }
+                else
+                {
+                    AppSettings.AddSearchHistoryItem(new SuggestionItem() { Word = SearchText });
+                }
             }
             base.OnNavigatedTo(e);
         }
