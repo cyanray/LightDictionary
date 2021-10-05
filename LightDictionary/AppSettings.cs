@@ -1,11 +1,15 @@
-﻿using System;
+﻿using DictionaryService.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using LightDictionary.Utils;
 
 namespace LightDictionary
 {
@@ -29,6 +33,47 @@ namespace LightDictionary
                 SaveSettings(nameof(CustomTheme), value);
                 NotifyPropertyChanged();
             }
+        }
+
+        private ObservableCollection<SuggestionItem> _searchHistoryItems;
+        public ObservableCollection<SuggestionItem> SearchHistoryItems
+        {
+            get
+            {
+                if (_searchHistoryItems == null)
+                {
+                    var text = ReadSettings(nameof(SearchHistoryItems), "[]");
+                    _searchHistoryItems = JsonConvert.DeserializeObject<ObservableCollection<SuggestionItem>>(text);
+                }
+                return _searchHistoryItems;
+            }
+        }
+
+        public void AddSearchHistoryItem(SuggestionItem item)
+        {
+            SearchHistoryItems.Remove(x => x.Word == item.Word);
+            SearchHistoryItems.Insert(0, item);
+            if (SearchHistoryItems.Count > 15)
+            {
+                for (int i = 15; i < _searchHistoryItems.Count; i++)
+                {
+                    SearchHistoryItems.RemoveAt(i);
+                }
+            }
+            SaveSearchHistoryItems();
+        }
+
+        private void SaveSearchHistoryItems()
+        {
+            var text = JsonConvert.SerializeObject(SearchHistoryItems);
+            SaveSettings(nameof(SearchHistoryItems), text);
+            NotifyPropertyChanged(nameof(SearchHistoryItems));
+        }
+
+        public void ClearSearchHistoryItems()
+        {
+            SearchHistoryItems.Clear();
+            SaveSearchHistoryItems();
         }
 
         public ApplicationDataContainer LocalSettings { get; set; }

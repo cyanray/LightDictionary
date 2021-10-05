@@ -28,21 +28,13 @@ namespace LightDictionary
 
         public DictItem LocalResult { get; set; }
 
-        public List<SuggestionItem> SearchHistoryItems { get; set; }
+        private AppSettings AppSettings = Constants.AppSettings;
 
         public DictionaryPage()
         {
             this.InitializeComponent();
 
-            SearchHistoryItems = new List<SuggestionItem>()
-            {
-                new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;开心;愉快;快乐;开心;愉快;快乐;开心;愉快;快乐;开心;愉快;快乐;开心;愉快;快乐;开心;愉快;快乐;开心;愉快;快乐;" },
-                new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" },
-                new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" },
-                new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" },
-                new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" },
-                new SuggestionItem() { Word ="happy", Chinese="开心;愉快;快乐;" }
-            };
+            SearchHistoryList.ItemsSource = AppSettings.SearchHistoryItems;
 
             var changed =
                 Observable.FromEventPattern<
@@ -121,6 +113,7 @@ namespace LightDictionary
                 VisualStateManager.GoToState(this, HasSearchResultState.Name, false);
                 var result = await Constants.BingLocalDictionaryService.SearchAsync(SearchText);
                 LocalResult = result;
+                AppSettings.AddSearchHistoryItem(result.Suggestion);
             }
             base.OnNavigatedTo(e);
         }
@@ -157,6 +150,11 @@ namespace LightDictionary
                 SearchText = item.Word
             };
             SearchAction(param);
+        }
+
+        private void ClearSearchHistoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            AppSettings.ClearSearchHistoryItems();
         }
     }
 }

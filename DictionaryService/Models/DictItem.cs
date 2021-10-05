@@ -14,6 +14,8 @@ namespace DictionaryService.Models
 
         public string UkPronunciation { get; set; }
 
+        public SuggestionItem Suggestion {  get; set; }
+
         public List<WordDefinition> WordDefinitions { get; set; } = new List<WordDefinition>();
     }
 }

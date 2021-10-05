@@ -23,6 +23,13 @@ namespace DictionaryService
                 .FirstOrDefaultAsync();
             if (dictResult == null) return null;
 
+            result.Suggestion = new SuggestionItem
+            {
+                Word = dictResult.Word,
+                Chinese = dictResult.AutoSugg,
+                Frequency = (long)dictResult.Freq
+            };
+
             XDocument doc = XDocument.Parse(dictResult.Defi);
             Console.WriteLine(doc);
             var prons = doc.Root.Elements("PRON").Descendants("PRON").ToList();

@@ -129,6 +129,7 @@
                     <Button Grid.Column="1" 
                             Visibility="Visible" 
                             HorizontalAlignment="Right"
+                            Click="ClearSearchHistoryButton_Click"
                             Style="{StaticResource FontButtonStyle}">
                         <FontIcon HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
@@ -140,7 +141,6 @@
                 <ListView x:Name="SearchHistoryList"
                           SelectionMode="Single"
                           ItemTemplate="{StaticResource HistoryItemCollapsed}"
-                          ItemsSource="{x:Bind SearchHistoryItems}"
                           SelectionChanged="SearchHistoryList_SelectionChanged"
                           DoubleTapped="SearchHistoryList_DoubleTapped"
                           RightTapped="SearchHistoryList_RightTapped">
