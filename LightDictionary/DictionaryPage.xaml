@@ -8,6 +8,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:models="using:DictionaryService.Models" 
     xmlns:utils="using:LightDictionary.Utils"
+    xmlns:triggers="using:Microsoft.Toolkit.Uwp.UI.Triggers"
     mc:Ignorable="d"
     Loaded="Page_Loaded">
 
@@ -59,7 +60,7 @@
 
     <ScrollViewer>
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="SearchResultState">
+            <VisualStateGroup>
                 <VisualState x:Name="HasSearchResultState" >
                     <VisualState.Setters>
                         <!--<Setter Target="SearchBoxPlayground.Height" Value="{StaticResource GridLengthAuto}" />-->
@@ -79,7 +80,28 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
+
+            <VisualStateGroup>
+                <VisualState x:Name="HistoryListVisibleState">
+                    <VisualState.Setters>
+                        <Setter Target="SearchHistoryPanel.Visibility" Value="Visible"/>
+                        <Setter Target="NoSearchHistoryTips.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="HistoryListCollapsedState">
+                    <VisualState.StateTriggers>
+                        <triggers:IsNullOrEmptyStateTrigger Value="{x:Bind AppSettings.SearchHistoryItems, Mode=OneWay}"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SearchHistoryPanel.Visibility" Value="Collapsed"/>
+                        <Setter Target="NoSearchHistoryTips.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+
         </VisualStateManager.VisualStateGroups>
+        
 
         <Grid x:Name="Playground" RowSpacing="10" Margin="30">
             <Grid.RowDefinitions>
@@ -117,7 +139,14 @@
                 </AutoSuggestBox.ItemTemplate>
             </AutoSuggestBox>
 
-            <StackPanel Grid.Row="2" Margin="0,10" x:Name="SearchHistoryPanel">
+            <TextBlock x:Name="NoSearchHistoryTips" 
+                       Grid.Row="2" 
+                       Visibility="Collapsed" 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" 
+                       Text="还没有搜索记录..."></TextBlock>
+            
+            <StackPanel x:Name="SearchHistoryPanel" Grid.Row="2" Margin="0,10">
                 <Grid >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -127,7 +156,6 @@
                         <TextBlock FontSize="15" Text="查询历史" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                     <Button Grid.Column="1" 
-                            Visibility="{x:Bind AppSettings.SearchHistoryItems, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}"
                             HorizontalAlignment="Right"
                             Click="ClearSearchHistoryButton_Click"
                             Style="{StaticResource FontButtonStyle}">
