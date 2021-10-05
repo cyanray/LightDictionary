@@ -13,6 +13,10 @@ namespace LightDictionary.Utils
     {
         public object Convert(object value, Type targetType, object parameter, string culture)
         {
+            if (value is null)
+            {
+                return Visibility.Collapsed;
+            }
             if (value is string str && string.IsNullOrEmpty(str))
             {
                 return Visibility.Collapsed;

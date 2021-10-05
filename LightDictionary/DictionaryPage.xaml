@@ -70,7 +70,7 @@
                         <Setter Target="SearchHistoryPanel.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState x:Name="WithoutSearchResultState">
+                <VisualState x:Name="NoSearchResultState">
                     <VisualState.Setters>
                         <!--<Setter Target="SearchBoxPlayground.Height" Value="{StaticResource GridLengthStar}" />-->
                         <!--<Setter Target="SearchResultPlayground.Height" Value="{StaticResource GridLengthAuto}" />-->
@@ -97,7 +97,6 @@
                         <Setter Target="NoSearchHistoryTips.Visibility" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
-
             </VisualStateGroup>
 
         </VisualStateManager.VisualStateGroups>
