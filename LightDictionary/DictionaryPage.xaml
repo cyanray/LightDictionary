@@ -127,7 +127,7 @@
                         <TextBlock FontSize="15" Text="查询历史" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                     <Button Grid.Column="1" 
-                            Visibility="Visible" 
+                            Visibility="{x:Bind AppSettings.SearchHistoryItems, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}"
                             HorizontalAlignment="Right"
                             Click="ClearSearchHistoryButton_Click"
                             Style="{StaticResource FontButtonStyle}">

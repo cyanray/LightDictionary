@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,11 @@ namespace LightDictionary.Utils
     {
         public object Convert(object value, Type targetType, object parameter, string culture)
         {
-            if (string.IsNullOrEmpty((string)value))
+            if (value is string str && string.IsNullOrEmpty(str))
+            {
+                return Visibility.Collapsed;
+            }
+            else if (value is ICollection collection && collection.Count == 0)
             {
                 return Visibility.Collapsed;
             }

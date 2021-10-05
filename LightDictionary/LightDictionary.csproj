@@ -146,6 +146,7 @@
       <DependentUpon>TranslationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Constants.cs" />
+    <Compile Include="Utils\ExtentionMethods.cs" />
     <Compile Include="Utils\HideWhenEmptyOrNullConverter.cs" />
     <Compile Include="Utils\ThemeHelper.cs" />
   </ItemGroup>
