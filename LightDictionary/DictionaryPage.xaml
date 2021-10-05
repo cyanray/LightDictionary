@@ -204,8 +204,8 @@
                     <ListView.Resources>
                         <MenuFlyout x:Name="SearhHistoryMenuFlyout">
                             <!--<MenuFlyoutItem Text="Delete" Command="{Binding DataContext.DeleteCommand, ElementName=contentGrid}" CommandParameter="{Binding}"  />-->
-                            <MenuFlyoutItem x:Name="Search" Text="Search" Icon="Find"/>
-                            <MenuFlyoutItem x:Name="Delete" Text="Delete" Icon="Delete"/>
+                            <MenuFlyoutItem x:Name="Search" Text="Search" Icon="Find" Click="SearchHistoryButton_Click"/>
+                            <MenuFlyoutItem x:Name="Delete" Text="Delete" Icon="Delete" Click="DeleteHistoryButton_Click"/>
                         </MenuFlyout>
                     </ListView.Resources>
                 </ListView>

@@ -63,6 +63,12 @@ namespace LightDictionary
             SaveSearchHistoryItems();
         }
 
+        public void RemoveSearchHistoryItem(SuggestionItem item)
+        {
+            SearchHistoryItems.Remove(item);
+            SaveSearchHistoryItems();
+        }
+
         private void SaveSearchHistoryItems()
         {
             var text = JsonConvert.SerializeObject(SearchHistoryItems);

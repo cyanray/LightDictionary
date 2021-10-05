@@ -165,5 +165,21 @@ namespace LightDictionary
         {
             AppSettings.ClearSearchHistoryItems();
         }
+
+        private void SearchHistoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var item = (SuggestionItem)SearchHistoryList.SelectedItem;
+            var param = new DictionaryNavParam()
+            {
+                SearchText = item.Word
+            };
+            SearchAction(param);
+        }
+
+        private void DeleteHistoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var item = (SuggestionItem)SearchHistoryList.SelectedItem;
+            AppSettings.RemoveSearchHistoryItem(item);
+        }
     }
 }
