@@ -10,5 +10,7 @@ namespace LightDictionary.Utils
     internal static class Constants
     {
         public static BingLocalDictionaryService BingLocalDictionaryService = new BingLocalDictionaryService();
+
+        public static AppSettings AppSettings= new AppSettings();
     }
 }

@@ -8,7 +8,8 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:models="using:DictionaryService.Models" 
     xmlns:utils="using:LightDictionary.Utils"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
 
     <Page.Resources>
         <GridLength x:Key="GridLengthStar">*</GridLength>

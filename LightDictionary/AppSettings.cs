@@ -21,6 +21,16 @@ namespace LightDictionary
             }
         }
 
+        public string CustomTheme
+        {
+            get => ReadSettings(nameof(CustomTheme), "Default");
+            set
+            {
+                SaveSettings(nameof(CustomTheme), value);
+                NotifyPropertyChanged();
+            }
+        }
+
         public ApplicationDataContainer LocalSettings { get; set; }
 
         public AppSettings()

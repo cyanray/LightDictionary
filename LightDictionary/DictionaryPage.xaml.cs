@@ -84,6 +84,12 @@ namespace LightDictionary
                 });
         }
 
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            DictionarySearchBox.Focus(FocusState.Programmatic);
+        }
+
         // Handle user selecting an item, in our case just output the selected item.
         private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {

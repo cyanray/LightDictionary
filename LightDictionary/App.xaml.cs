@@ -78,6 +78,9 @@ namespace LightDictionary
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+
+            // applying custom theme
+            Utils.ThemeHelper.RootTheme = Utils.ThemeHelper.GetEnum<ElementTheme>(settings.CustomTheme);
         }
 
         /// <summary>

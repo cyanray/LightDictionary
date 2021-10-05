@@ -56,7 +56,9 @@ namespace LightDictionary
         {
             if (e.AddedItems.Count > 0 && e.AddedItems[0] is RadioButton selectItem)
             {
-                ThemeHelper.RootTheme = ThemeHelper.GetEnum<ElementTheme>(selectItem.Tag.ToString());
+                string themeName = selectItem.Tag.ToString();
+                ThemeHelper.RootTheme = ThemeHelper.GetEnum<ElementTheme>(themeName);
+                Constants.AppSettings.CustomTheme = themeName;
             }
         }
 
