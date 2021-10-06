@@ -145,6 +145,9 @@
     <Compile Include="TranslationPage.xaml.cs">
       <DependentUpon>TranslationPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\CardView.xaml.cs">
+      <DependentUpon>CardView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Utils\ExtentionMethods.cs" />
     <Compile Include="Utils\HideWhenEmptyOrNullConverter.cs" />
@@ -230,6 +233,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TranslationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

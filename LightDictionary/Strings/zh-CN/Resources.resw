@@ -141,9 +141,6 @@
   <data name="InfoNeedRestart_RestartAction.Content" xml:space="preserve">
     <value>立即重启</value>
   </data>
-  <data name="LanguagePicker.Header" xml:space="preserve">
-    <value>显示语言</value>
-  </data>
   <data name="LanguagePicker.PlaceholderText" xml:space="preserve">
     <value>请选择一个显示语言。</value>
   </data>

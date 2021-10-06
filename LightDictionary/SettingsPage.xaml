@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:localControls="using:LightDictionary.UserControls"
     mc:Ignorable="d"
     Loaded="Page_Loaded">
     <Page.Resources>
@@ -14,6 +15,7 @@
     <ScrollViewer>
         <StackPanel Spacing="10" Margin="30">
             <TextBlock x:Uid="SettingsPageTitle" FontSize="26"></TextBlock>
+
             <muxc:InfoBar x:Name="InfoNeedRestart"
                           x:Uid="InfoNeedRestart"
                           IsOpen="False"
@@ -23,21 +25,12 @@
                     <Button x:Uid="InfoNeedRestart_RestartAction" Click="InfoNeedRestart_RestartAction" />
                 </muxc:InfoBar.ActionButton>
             </muxc:InfoBar>
+
             <TextBlock x:Uid="SettingsAppearance"
                        Style="{StaticResource BodyStrongTextBlockStyle}"
                        AutomationProperties.HeadingLevel="Level1"/>
-            
-            <ComboBox x:Name="LanguagePicker" 
-                      x:Uid="LanguagePicker"
-                      ItemsSource="{x:Bind UserLanguages}" 
-                      Width="200"
-                      SelectionChanged="LanguagePicker_SelectionChanged"
-                      DropDownOpened="LanguagePicker_DropDownOpened"
-                      SelectedItem="{Binding Source={StaticResource AppSettings}, Path=PrimaryLanguageOverride, Mode=TwoWay}">
-            </ComboBox>
-
+                        
             <muxc:Expander x:Name="AppThemeExpander"
-                           Margin="0,8,0,0"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Top"
                            HorizontalContentAlignment="Left"
@@ -84,6 +77,67 @@
                     </muxc:RadioButtons>
                 </muxc:Expander.Content>
             </muxc:Expander>
+
+            <localControls:CardView>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <FontIcon VerticalAlignment="Center"
+                              Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                              FontFamily="{StaticResource SegoeFluentIcons}"
+                              FontSize="16"
+                              Glyph="&#xF2B7;"/>
+                    <StackPanel Grid.Column="1" Margin="12,0,0,0" Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock Text="显示语言" 
+                                   TextWrapping="WrapWholeWords" 
+                                   Style="{StaticResource BodyTextBlockStyle}" 
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="程序的显示语言"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                    <ComboBox x:Name="LanguagePicker" 
+                              x:Uid="LanguagePicker"
+                              Grid.Column="2"
+                              ItemsSource="{x:Bind UserLanguages}" 
+                              Width="160"
+                              SelectionChanged="LanguagePicker_SelectionChanged"
+                              DropDownOpened="LanguagePicker_DropDownOpened"
+                              SelectedItem="{Binding Source={StaticResource AppSettings}, Path=PrimaryLanguageOverride, Mode=TwoWay}"
+                              VerticalAlignment="Center" 
+                              HorizontalAlignment="Right">
+                    </ComboBox>
+                </Grid>
+            </localControls:CardView>
+
+            <TextBlock Text="功能"
+                       Style="{StaticResource BodyStrongTextBlockStyle}"
+                       AutomationProperties.HeadingLevel="Level1"/>
+
+            <localControls:CardView>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock Text="启用增强离线词典" 
+                                   TextWrapping="WrapWholeWords" 
+                                   Style="{StaticResource BodyTextBlockStyle}" 
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="增强词典中包含例句、英英释义&#x0a;启用该选项会解压缩内置的增强词典数据库，需要额外占用约 60MB 的硬盘空间"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                    <ToggleSwitch Grid.Column="1" FlowDirection="RightToLeft" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                </Grid>
+            </localControls:CardView>
+
         </StackPanel>
     </ScrollViewer>
 </Page>

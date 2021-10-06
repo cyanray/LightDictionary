@@ -141,9 +141,6 @@
   <data name="InfoNeedRestart_RestartAction.Content" xml:space="preserve">
     <value>Restart</value>
   </data>
-  <data name="LanguagePicker.Header" xml:space="preserve">
-    <value>Display language</value>
-  </data>
   <data name="LanguagePicker.PlaceholderText" xml:space="preserve">
     <value>Please select a display language.</value>
   </data>
