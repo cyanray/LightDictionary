@@ -252,41 +252,34 @@
                                        Text="没有搜索到结果"></TextBlock>
                             <StackPanel x:Name="LocalResultContent" Spacing="8">
                                 <TextBlock Text="{x:Bind SearchText}" 
-                                       FontSize="30" 
+                                       FontSize="32" 
                                        IsTextSelectionEnabled="True" />
-                                <StackPanel Spacing="5" Orientation="Horizontal">
-                                    <Button VerticalAlignment="Center"
-                                        Visibility="{x:Bind LocalResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
-                                        <StackPanel Spacing="2" Orientation="Horizontal">
-                                            <TextBlock Text="US" VerticalAlignment="Center"></TextBlock>
-                                            <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
-                                            <TextBlock Text="{x:Bind LocalResult.UsPronunciation}" VerticalAlignment="Center"></TextBlock>
-                                            <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
-                                            <FontIcon
-                                      VerticalAlignment="Center"
-                                      FontFamily="{StaticResource SegoeFluentIcons}"
-                                      Glyph="&#xE767;"/>
-                                        </StackPanel>
-                                    </Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel Margin="0,0,20,0" Spacing="2" Orientation="Horizontal" Visibility="{x:Bind LocalResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                        <TextBlock Text="UK" />
+                                        <TextBlock Text="[" />
+                                        <TextBlock Text="{x:Bind LocalResult.UkPronunciation}" IsTextSelectionEnabled="True" />
+                                        <TextBlock Text="]" />
+                                    </StackPanel>
 
-                                    <Button VerticalAlignment="Center"
-                                        Visibility="{x:Bind LocalResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
-                                        <StackPanel Spacing="2" Orientation="Horizontal">
-                                            <TextBlock Text="UK" VerticalAlignment="Center"></TextBlock>
-                                            <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
-                                            <TextBlock Text="{x:Bind LocalResult.UkPronunciation}" VerticalAlignment="Center"></TextBlock>
-                                            <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
-                                            <FontIcon
-                                      VerticalAlignment="Center"
-                                      FontFamily="{StaticResource SegoeFluentIcons}"
-                                      Glyph="&#xE767;"/>
-                                        </StackPanel>
-                                    </Button>
+                                    <StackPanel Spacing="2" Orientation="Horizontal" Visibility="{x:Bind LocalResult.UsPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                        <TextBlock Text="US" />
+                                        <TextBlock Text="[" />
+                                        <TextBlock Text="{x:Bind LocalResult.UsPronunciation}" IsTextSelectionEnabled="True" />
+                                        <TextBlock Text="]" />
+                                    </StackPanel>
                                 </StackPanel>
 
                                 <ListView SelectionMode="None"
-                                      ItemsSource="{x:Bind LocalResult.WordDefinitions}"
-                                      ItemTemplate="{StaticResource WordDefinitionTemplate}">
+                                          ItemsSource="{x:Bind LocalResult.WordDefinitions}"
+                                          ItemTemplate="{StaticResource WordDefinitionTemplate}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="Padding" Value="0"/>
+                                            <Setter Property="Margin" Value="0"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
                                 </ListView>
                             </StackPanel>
                         </Grid>

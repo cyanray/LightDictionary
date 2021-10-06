@@ -8,6 +8,8 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -181,5 +183,15 @@ namespace LightDictionary
             var item = (SuggestionItem)SearchHistoryList.SelectedItem;
             AppSettings.RemoveSearchHistoryItem(item);
         }
+
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    System.Uri manifestUri = new Uri("https://dictionary.blob.core.chinacloudapi.cn/media/audio/tom/8f/c8/8FC8ED9CD7522AD312AAA417DDCFBEB8.mp3");
+        //    var mediaPlayer = new MediaPlayer
+        //    {
+        //        Source = MediaSource.CreateFromUri(manifestUri)
+        //    };
+        //    mediaPlayer.Play();
+        //}
     }
 }
