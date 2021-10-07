@@ -115,7 +115,7 @@ namespace LightDictionary
                 SearchText = param.SearchText;
                 HasSearchResult = true;
                 VisualStateManager.GoToState(this, DisplaySearchResultState.Name, false);
-                var result = await Constants.BingLocalDictionaryService.SearchAsync(SearchText);
+                var result = await Constants.BingLocalDictionaryService.SearchAsync(SearchText, AppSettings.EnableEnhancedDictionary);
                 LocalResult = result;
                 if (result != null)
                 {

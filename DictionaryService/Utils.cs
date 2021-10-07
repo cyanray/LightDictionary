@@ -1,4 +1,5 @@
-﻿using DictionaryService.Models;
+﻿using DictionaryService.DbContexts;
+using DictionaryService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace DictionaryService
     internal static class Utils
     {
         internal static readonly BingDictContext BingDictDbContext = new BingDictContext();
+
+        internal static readonly BingEnhancedDictDbContext BingEnhancedDictDbContext = new BingEnhancedDictDbContext();
     }
 }

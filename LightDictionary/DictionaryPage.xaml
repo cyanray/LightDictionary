@@ -8,13 +8,13 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:models="using:DictionaryService.Models" 
     xmlns:utils="using:LightDictionary.Utils"
-    xmlns:triggers="using:Microsoft.Toolkit.Uwp.UI.Triggers"
+    xmlns:triggers="using:Microsoft.Toolkit.Uwp.UI.Triggers" xmlns:usercontrols="using:LightDictionary.UserControls"
     mc:Ignorable="d"
     Loaded="Page_Loaded">
 
     <Page.Resources>
         <DataTemplate x:Name="WordDefinitionTemplate" x:DataType="models:WordDefinition">
-            <Grid ColumnSpacing="10">
+            <Grid ColumnSpacing="10" Margin="0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
@@ -29,10 +29,21 @@
                 <Grid Grid.Column="1">
                     <TextBlock Text="{x:Bind Definition}" 
                                TextTrimming="CharacterEllipsis"
-                               TextWrapping="Wrap" 
+                               TextWrapping="WrapWholeWords" 
                                IsTextSelectionEnabled="True" />
                 </Grid>
             </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Name="ExampleSentenceTemplate" x:DataType="models:ExampleSentence">
+            <StackPanel Margin="0,5" Orientation="Vertical" HorizontalAlignment="Stretch">
+                <TextBlock Text="{x:Bind English}" 
+                           IsTextSelectionEnabled="True"
+                           TextWrapping="WrapWholeWords" />
+                <TextBlock Text="{x:Bind Chinese}" 
+                           IsTextSelectionEnabled="True"
+                           TextWrapping="WrapWholeWords" />
+            </StackPanel>
         </DataTemplate>
 
         <DataTemplate x:Name="HistoryItemCollapsed"  x:DataType="models:SuggestionItem">
@@ -130,7 +141,7 @@
             </VisualStateGroup>
 
         </VisualStateManager.VisualStateGroups>
-        
+
 
         <Grid x:Name="Playground" RowSpacing="10" Margin="30">
             <Grid.RowDefinitions>
@@ -174,7 +185,7 @@
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center" 
                        Text="还没有搜索记录..."></TextBlock>
-            
+
             <StackPanel x:Name="SearchHistoryPanel" Grid.Row="2" Margin="0,10">
                 <Grid >
                     <Grid.ColumnDefinitions>
@@ -270,17 +281,66 @@
                                     </StackPanel>
                                 </StackPanel>
 
+                                <Grid Margin="0,5,0,0" 
+                                      BorderThickness="0,0,0,1" 
+                                      BorderBrush="Gray"
+                                      Visibility="{x:Bind LocalResult.ChineseDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                    <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="英 - 中"></TextBlock>
+                                </Grid>
+
                                 <ListView SelectionMode="None"
-                                          ItemsSource="{x:Bind LocalResult.WordDefinitions}"
+                                          ItemsSource="{x:Bind LocalResult.ChineseDefinitions}"
                                           ItemTemplate="{StaticResource WordDefinitionTemplate}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="Padding" Value="0"/>
                                             <Setter Property="Margin" Value="0"/>
                                             <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="MinHeight" Value="0" />
                                         </Style>
                                     </ListView.ItemContainerStyle>
                                 </ListView>
+
+                                <Grid Margin="0,5,0,0" 
+                                      BorderThickness="0,0,0,1" 
+                                      BorderBrush="Gray"
+                                      Visibility="{x:Bind LocalResult.EnglishDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                    <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="英 - 英"></TextBlock>
+                                </Grid>
+
+                                <ListView SelectionMode="None"
+                                          ItemsSource="{x:Bind LocalResult.EnglishDefinitions}"
+                                          ItemTemplate="{StaticResource WordDefinitionTemplate}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="Padding" Value="0"/>
+                                            <Setter Property="Margin" Value="0"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="MinHeight" Value="0" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <Grid Margin="0,5,0,0" 
+                                      BorderThickness="0,0,0,1" 
+                                      BorderBrush="Gray"
+                                      Visibility="{x:Bind LocalResult.ExampleSentences, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                    <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="例句"></TextBlock>
+                                </Grid>
+
+                                <ListView SelectionMode="None"
+                                          ItemsSource="{x:Bind LocalResult.ExampleSentences}"
+                                          ItemTemplate="{StaticResource ExampleSentenceTemplate}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="Padding" Value="0"/>
+                                            <Setter Property="Margin" Value="0"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="MinHeight" Value="0" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
                             </StackPanel>
                         </Grid>
                     </muxc:Expander.Content>
@@ -376,7 +436,7 @@
                                 </StackPanel>
 
                                 <ListView SelectionMode="None"
-                                      ItemsSource="{x:Bind BingResult.WordDefinitions}"
+                                      ItemsSource="{x:Bind BingResult.ChineseDefinitions}"
                                       ItemTemplate="{StaticResource WordDefinitionTemplate}">
                                 </ListView>
                             </StackPanel>

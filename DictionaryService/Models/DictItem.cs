@@ -16,6 +16,10 @@ namespace DictionaryService.Models
 
         public SuggestionItem Suggestion {  get; set; }
 
-        public List<WordDefinition> WordDefinitions { get; set; } = new List<WordDefinition>();
+        public List<WordDefinition> ChineseDefinitions { get; set; } = new List<WordDefinition>();
+
+        public List<WordDefinition> EnglishDefinitions { get; set; } = new List<WordDefinition>();
+
+        public List<ExampleSentence> ExampleSentences { get; set; } = new List<ExampleSentence>();
     }
 }

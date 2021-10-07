@@ -1,21 +1,20 @@
-﻿using System;
+﻿using DictionaryService.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System.IO;
-using Windows.Storage;
-using System.Diagnostics;
-using Windows.ApplicationModel;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DictionaryService.Models
+namespace DictionaryService.DbContexts
 {
-    public partial class BingDictContext : DbContext
+    public partial class BingEnhancedDictDbContext : DbContext
     {
-        public BingDictContext()
+        public BingEnhancedDictDbContext()
         {
         }
 
-        public BingDictContext(DbContextOptions<BingDictContext> options)
+        public BingEnhancedDictDbContext(DbContextOptions<BingEnhancedDictDbContext> options)
             : base(options)
         {
         }
@@ -26,8 +25,7 @@ namespace DictionaryService.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                string connectionString = $"Data Source={Path.Combine(Package.Current.InstalledLocation.Path, "BingDict.db")};";
-                optionsBuilder.UseSqlite(connectionString);
+                optionsBuilder.UseSqlite($"Data Source={EnhancedDictHelper.DatabasePath}");
             }
         }
 
@@ -37,7 +35,9 @@ namespace DictionaryService.Models
             {
                 entity.HasKey(e => e.Word);
 
-                entity.HasIndex(e => e.Word).HasName("wordIndex"); ;
+                entity.ToTable("Dict");
+
+                entity.HasIndex(e => e.Word).HasName("wordIndex");
 
                 entity.Property(e => e.Word).HasColumnName("word");
 
@@ -45,7 +45,7 @@ namespace DictionaryService.Models
 
                 entity.Property(e => e.Defi).IsRequired();
 
-                entity.Property(e => e.Freq).HasColumnName("freq");
+                entity.Ignore(e => e.Freq);
             });
 
             OnModelCreatingPartial(modelBuilder);

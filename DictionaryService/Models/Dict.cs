@@ -9,6 +9,6 @@ namespace DictionaryService.Models
         public string Word { get; set; }
         public string AutoSugg { get; set; }
         public string Defi { get; set; }
-        public long? Freq { get; set; }
+        public long? Freq { get; set; } = 0;
     }
 }
