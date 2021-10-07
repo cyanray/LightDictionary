@@ -121,11 +121,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BingLocalDictionaryService.cs" />
+    <Compile Include="DbContexts\BingDictContext.cs" />
+    <Compile Include="DbContexts\BingEnhancedDictDbContext.cs" />
     <Compile Include="EnhancedDictHelper.cs" />
     <Compile Include="IDictionaryService.cs" />
-    <Compile Include="Models\BingDictContext.cs" />
     <Compile Include="Models\Dict.cs" />
     <Compile Include="Models\DictItem.cs" />
+    <Compile Include="Models\ExampleSentence.cs" />
     <Compile Include="Models\SuggestionItem.cs" />
     <Compile Include="Models\WordDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
