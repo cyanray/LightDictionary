@@ -35,6 +35,16 @@ namespace LightDictionary
             }
         }
 
+        public bool EnableEnhancedDictionary
+        {
+            get => ReadSettings(nameof(EnableEnhancedDictionary), false);
+            set
+            {
+                SaveSettings(nameof(EnableEnhancedDictionary), value);
+                NotifyPropertyChanged();
+            }
+        }
+
         private ObservableCollection<SuggestionItem> _searchHistoryItems;
         public ObservableCollection<SuggestionItem> SearchHistoryItems
         {

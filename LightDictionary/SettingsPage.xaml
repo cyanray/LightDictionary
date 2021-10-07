@@ -26,6 +26,20 @@
                 </muxc:InfoBar.ActionButton>
             </muxc:InfoBar>
 
+            <muxc:InfoBar x:Name="ErrorInfo"
+                          Title="出现错误"
+                          IsOpen="False"
+                          IsClosable="True"
+                          Severity="Error">
+            </muxc:InfoBar>
+
+            <muxc:InfoBar x:Name="SuccessInfo"
+                          Title="成功"
+                          IsOpen="False"
+                          IsClosable="True"
+                          Severity="Success">
+            </muxc:InfoBar>
+
             <TextBlock x:Uid="SettingsAppearance"
                        Style="{StaticResource BodyStrongTextBlockStyle}"
                        AutomationProperties.HeadingLevel="Level1"/>
@@ -134,7 +148,12 @@
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    TextWrapping="WrapWholeWords"/>
                     </StackPanel>
-                    <ToggleSwitch Grid.Column="1" FlowDirection="RightToLeft" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <ToggleSwitch Grid.Column="1" 
+                                  IsOn="{x:Bind AppSettings.EnableEnhancedDictionary, Mode=TwoWay}"
+                                  FlowDirection="RightToLeft" 
+                                  VerticalAlignment="Center" 
+                                  HorizontalAlignment="Right" 
+                                  Toggled="EnhancedDictSwitch_Toggled"/>
                 </Grid>
             </localControls:CardView>
 

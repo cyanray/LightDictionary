@@ -1,9 +1,11 @@
-﻿using LightDictionary.Utils;
+﻿using DictionaryService;
+using LightDictionary.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -23,6 +25,7 @@ namespace LightDictionary
     public sealed partial class SettingsPage : Page
     {
         private readonly IReadOnlyList<string> UserLanguages = ApplicationLanguages.ManifestLanguages;
+
         public AppSettings AppSettings { get; set; } = new AppSettings();
 
         private bool UserChange = false;
@@ -66,6 +69,25 @@ namespace LightDictionary
         {
             var currentTheme = ThemeHelper.RootTheme.ToString();
             ThemeRadioButtons.Items.Cast<RadioButton>().FirstOrDefault(c => c?.Tag?.ToString() == currentTheme).IsChecked = true;
+        }
+
+        private async void EnhancedDictSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (!EnhancedDictHelper.IsExtracted)
+            {
+                try
+                {
+                    await Task.Run(() => { EnhancedDictHelper.ExtractDatabase(); });
+                    SuccessInfo.Message = "成功解压缩增强词典数据库";
+                    SuccessInfo.IsOpen = true;
+                }
+                catch (Exception ex)
+                {
+                    ErrorInfo.Message = ex.Message;
+                    ErrorInfo.IsOpen = true;
+                    AppSettings.EnableEnhancedDictionary = false;
+                }
+            }
         }
     }
 }
