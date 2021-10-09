@@ -11,7 +11,7 @@
     <Page.Resources>
         <!--This top margin is the height of the custom TitleBar-->
         <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
-        
+
         <SolidColorBrush x:Key="ButtonForegroundColor" Color="{ThemeResource SystemBaseHighColor}" />
         <SolidColorBrush x:Key="ButtonInactiveForegroundBrush" Color="{ThemeResource SystemChromeDisabledLowColor}" />
         <SolidColorBrush x:Key="ButtonHoverBackgroundBrush" Color="{ThemeResource SystemListLowColor}" />
@@ -30,8 +30,20 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
+
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="641" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ContentFrame.Margin" Value="0,0,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+
         </VisualStateManager.VisualStateGroups>
-        
+
         <Border x:Name="AppTitleBar"
                 IsHitTestVisible="True"
                 VerticalAlignment="Top"
@@ -55,7 +67,7 @@
                            Style="{StaticResource CaptionTextBlockStyle}" />
             </StackPanel>
         </Border>
-        
+
         <muxc:NavigationView x:Name="MainNav"
                              PaneDisplayMode="Auto"
                              IsTitleBarAutoPaddingEnabled="False"
@@ -65,29 +77,17 @@
                              ItemInvoked="MainNav_ItemInvoked"
                              BackRequested="MainNav_BackRequested"
                              Canvas.ZIndex="0">
-            <VisualStateManager.VisualStateGroups>
-                <VisualStateGroup>
-                    <VisualState>
-                        <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="641" />
-                        </VisualState.StateTriggers>
-                        <VisualState.Setters>
-                            <Setter Target="ContentFrame.Margin" Value="0,0,0,0" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
 
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem x:Uid="NavItemDictionary" Icon="Find" Tag="Dictionary" IsSelected="True"/>
                 <muxc:NavigationViewItem x:Uid="NavItemTranslation" Icon="Character" Tag="Translation"/>
                 <muxc:NavigationViewItem x:Uid="NavItemNote" Icon="Highlight" Tag="Note"/>
             </muxc:NavigationView.MenuItems>
-            
+
             <Frame x:Name="ContentFrame"
                    Margin="{StaticResource NavigationViewContentMargin}" 
                    Navigated="ContentFrame_Navigated" />
-            
+
         </muxc:NavigationView>
     </Grid>
 </Page>
