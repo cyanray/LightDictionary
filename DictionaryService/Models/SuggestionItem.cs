@@ -12,6 +12,14 @@ namespace DictionaryService.Models
 
         public string Chinese { get; set; }
 
+        public string ChineseDisplay
+        {
+            get
+            {
+                return Chinese?.Replace("$$", "\n");
+            }
+        }
+
         public long Frequency { get; set; }
     }
 }

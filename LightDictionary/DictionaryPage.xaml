@@ -55,7 +55,7 @@
         <DataTemplate x:Name="HistoryItemExpanded"  x:DataType="models:SuggestionItem">
             <StackPanel Spacing="2" Padding="0,6">
                 <TextBlock Text="{x:Bind Word}" />
-                <TextBlock Text="{x:Bind Chinese}" 
+                <TextBlock Text="{x:Bind ChineseDisplay}" 
                            TextWrapping="Wrap" 
                            TextTrimming="CharacterEllipsis"
                            FontSize="12"
