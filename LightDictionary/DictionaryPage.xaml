@@ -198,7 +198,7 @@
                     <Button Grid.Column="1" 
                             HorizontalAlignment="Right"
                             Click="ClearSearchHistoryButton_Click"
-                            Style="{StaticResource FontButtonStyle}">
+                            Style="{ThemeResource CommandBarFlyoutEllipsisButtonStyle}">
                         <FontIcon HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   FontSize="14"
