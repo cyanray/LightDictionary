@@ -13,7 +13,7 @@ namespace DictionaryService
     {
         public static Task<List<SuggestionItem>> GetSuggestionsAsync(string text, int limit = 10)
         {
-            var result = Utils.BingDictDbContext.Dict
+            var result = Constants.BingDictDbContext.Dict
                 .AsNoTracking()
                 .Where(x => EF.Functions.Like(x.Word, $"{text}%"))
                 .Take(limit)
@@ -34,7 +34,7 @@ namespace DictionaryService
         /// <returns></returns>
         public static bool Init()
         {
-            Utils.BingDictDbContext.Database.IsSqlite();
+            Constants.BingDictDbContext.Database.IsSqlite();
             return true;
         }
     }

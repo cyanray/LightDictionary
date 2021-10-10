@@ -20,14 +20,14 @@ namespace DictionaryService
             Dict dictResult;
             if (useEnhancedDb)
             {
-                dictResult = await Utils.BingEnhancedDictDbContext.Dict
+                dictResult = await Constants.BingEnhancedDictDbContext.Dict
                 .AsNoTracking()
                 .Where(x => x.Word == word)
                 .FirstOrDefaultAsync();
             }
             else
             {
-                dictResult = await Utils.BingDictDbContext.Dict
+                dictResult = await Constants.BingDictDbContext.Dict
                 .AsNoTracking()
                 .Where(x => x.Word == word)
                 .FirstOrDefaultAsync();
@@ -81,7 +81,7 @@ namespace DictionaryService
             {
                 var English = item.Element("T").Element("D").Value;
                 var Chinses = item.Element("S").Element("D").Value;
-                result.ExampleSentences.Add(new ExampleSentence()
+                result.ExampleSentences.Add(new DualLangExampleSentence()
                 {
                     Chinese = Chinses,
                     English = English

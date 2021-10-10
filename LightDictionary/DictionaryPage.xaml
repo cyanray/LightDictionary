@@ -37,7 +37,7 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Name="ExampleSentenceTemplate" x:DataType="models:ExampleSentence">
+        <DataTemplate x:Name="ExampleSentenceTemplate" x:DataType="models:DualLangExampleSentence">
             <StackPanel Margin="0,5" Orientation="Vertical" HorizontalAlignment="Stretch">
                 <TextBlock Text="{x:Bind English}" 
                            IsTextSelectionEnabled="True"
@@ -141,7 +141,6 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
-
         </VisualStateManager.VisualStateGroups>
 
 

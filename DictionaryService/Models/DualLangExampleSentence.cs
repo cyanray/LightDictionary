@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DictionaryService.Models
 {
-    public class ExampleSentence
+    public class DualLangExampleSentence
     {
         public string Chinese { get; set; }
 

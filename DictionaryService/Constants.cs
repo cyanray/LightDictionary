@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DictionaryService
 {
-    internal static class Utils
+    internal static class Constants
     {
         internal static readonly BingDictContext BingDictDbContext = new BingDictContext();
 

@@ -11,6 +11,8 @@ namespace LightDictionary.Utils
     {
         public static BingLocalDictionaryService BingLocalDictionaryService = new BingLocalDictionaryService();
 
+        public static BingOnlineDictionaryService BingOnlineDictionaryService = new BingOnlineDictionaryService();
+
         public static AppSettings AppSettings= new AppSettings();
     }
 }

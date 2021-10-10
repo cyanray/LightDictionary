@@ -115,13 +115,37 @@ namespace LightDictionary
                 SearchText = param.SearchText;
                 HasSearchResult = true;
                 VisualStateManager.GoToState(this, DisplaySearchResultState.Name, false);
-                var result = await Constants.BingLocalDictionaryService.SearchAsync(SearchText, AppSettings.EnableEnhancedDictionary);
-                LocalResult = result;
+
+                var bingResult = Constants.BingOnlineDictionaryService.SearchAsync(SearchText);
+                var localResult = Constants.BingLocalDictionaryService.SearchAsync(SearchText, AppSettings.EnableEnhancedDictionary);
+
+                try
+                {
+                    LocalResult = await localResult;
+                    VisualStateManager.GoToState(this, HasLocalSearchResultState.Name, false);
+                }
+                catch (Exception)
+                {
+                    // TODO: 捕获异常
+                    throw;
+                }
+
                 AppSettings.AddSearchHistoryItem(new HistoryItem()
                 {
                     Word = SearchText,
-                    Chinese = string.Join("\n", result?.ChineseDefinitions.Select(x => x.Definition))
+                    Chinese = string.Join("\n", LocalResult?.ChineseDefinitions.Select(x => x.Definition))
                 });
+
+                try
+                {
+                    BingResult = await bingResult;
+                    VisualStateManager.GoToState(this, HasBingSearchResultState.Name, false);
+                }
+                catch (Exception)
+                {
+                    // TODO: 捕获异常
+                    throw;
+                }
             }
             base.OnNavigatedTo(e);
         }
@@ -145,14 +169,14 @@ namespace LightDictionary
         private void SearchHistoryList_RightTapped(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
         {
             ListView listView = (ListView)sender;
-            var item = (SuggestionItem)((FrameworkElement)e.OriginalSource).DataContext;
+            var item = (HistoryItem)((FrameworkElement)e.OriginalSource).DataContext;
             listView.SelectedItem = item;
             SearhHistoryMenuFlyout.ShowAt(listView, e.GetPosition(listView));
         }
 
         private void SearchHistoryList_DoubleTapped(object sender, Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs e)
         {
-            var item = (SuggestionItem)((FrameworkElement)e.OriginalSource).DataContext;
+            var item = (HistoryItem)((FrameworkElement)e.OriginalSource).DataContext;
             var param = new DictionaryNavParam()
             {
                 SearchText = item.Word
@@ -167,7 +191,7 @@ namespace LightDictionary
 
         private void SearchHistoryButton_Click(object sender, RoutedEventArgs e)
         {
-            var item = (SuggestionItem)SearchHistoryList.SelectedItem;
+            var item = (HistoryItem)SearchHistoryList.SelectedItem;
             var param = new DictionaryNavParam()
             {
                 SearchText = item.Word
