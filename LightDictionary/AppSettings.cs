@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using LightDictionary.Utils;
+using LightDictionary.Models;
 
 namespace LightDictionary
 {
@@ -45,21 +46,21 @@ namespace LightDictionary
             }
         }
 
-        private ObservableCollection<SuggestionItem> _searchHistoryItems;
-        public ObservableCollection<SuggestionItem> SearchHistoryItems
+        private ObservableCollection<HistoryItem> _searchHistoryItems;
+        public ObservableCollection<HistoryItem> SearchHistoryItems
         {
             get
             {
                 if (_searchHistoryItems == null)
                 {
                     var text = ReadSettings(nameof(SearchHistoryItems), "[]");
-                    _searchHistoryItems = JsonConvert.DeserializeObject<ObservableCollection<SuggestionItem>>(text);
+                    _searchHistoryItems = JsonConvert.DeserializeObject<ObservableCollection<HistoryItem>>(text);
                 }
                 return _searchHistoryItems;
             }
         }
 
-        public void AddSearchHistoryItem(SuggestionItem item)
+        public void AddSearchHistoryItem(HistoryItem item)
         {
             SearchHistoryItems.Remove(x => x.Word == item.Word);
             SearchHistoryItems.Insert(0, item);
@@ -73,7 +74,7 @@ namespace LightDictionary
             SaveSearchHistoryItems();
         }
 
-        public void RemoveSearchHistoryItem(SuggestionItem item)
+        public void RemoveSearchHistoryItem(HistoryItem item)
         {
             SearchHistoryItems.Remove(item);
             SaveSearchHistoryItems();

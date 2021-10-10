@@ -6,9 +6,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:models="using:DictionaryService.Models" 
     xmlns:utils="using:LightDictionary.Utils"
-    xmlns:triggers="using:Microsoft.Toolkit.Uwp.UI.Triggers" xmlns:usercontrols="using:LightDictionary.UserControls"
+    xmlns:triggers="using:Microsoft.Toolkit.Uwp.UI.Triggers" 
+    xmlns:usercontrols="using:LightDictionary.UserControls" 
+    xmlns:localmodels="using:LightDictionary.Models" 
+    xmlns:models="using:DictionaryService.Models"
     mc:Ignorable="d"
     Loaded="Page_Loaded">
 
@@ -46,16 +48,16 @@
             </StackPanel>
         </DataTemplate>
 
-        <DataTemplate x:Name="HistoryItemCollapsed"  x:DataType="models:SuggestionItem">
+        <DataTemplate x:Name="HistoryItemCollapsed"  x:DataType="localmodels:HistoryItem">
             <Grid>
                 <TextBlock Text="{x:Bind Word}" />
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Name="HistoryItemExpanded"  x:DataType="models:SuggestionItem">
+        <DataTemplate x:Name="HistoryItemExpanded"  x:DataType="localmodels:HistoryItem">
             <StackPanel Spacing="2" Padding="0,6">
                 <TextBlock Text="{x:Bind Word}" />
-                <TextBlock Text="{x:Bind ChineseDisplay}" 
+                <TextBlock Text="{x:Bind Chinese}" 
                            TextWrapping="Wrap" 
                            TextTrimming="CharacterEllipsis"
                            FontSize="12"

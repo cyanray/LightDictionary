@@ -117,14 +117,11 @@ namespace LightDictionary
                 VisualStateManager.GoToState(this, DisplaySearchResultState.Name, false);
                 var result = await Constants.BingLocalDictionaryService.SearchAsync(SearchText, AppSettings.EnableEnhancedDictionary);
                 LocalResult = result;
-                if (result != null)
+                AppSettings.AddSearchHistoryItem(new HistoryItem()
                 {
-                    AppSettings.AddSearchHistoryItem(result.Suggestion);
-                }
-                else
-                {
-                    AppSettings.AddSearchHistoryItem(new SuggestionItem() { Word = SearchText });
-                }
+                    Word = SearchText,
+                    Chinese = string.Join("\n", result?.ChineseDefinitions.Select(x => x.Definition))
+                });
             }
             base.OnNavigatedTo(e);
         }
@@ -180,7 +177,7 @@ namespace LightDictionary
 
         private void DeleteHistoryButton_Click(object sender, RoutedEventArgs e)
         {
-            var item = (SuggestionItem)SearchHistoryList.SelectedItem;
+            var item = (HistoryItem)SearchHistoryList.SelectedItem;
             AppSettings.RemoveSearchHistoryItem(item);
         }
 

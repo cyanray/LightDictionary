@@ -35,13 +35,6 @@ namespace DictionaryService
 
             if (dictResult == null) return null;
 
-            result.Suggestion = new SuggestionItem
-            {
-                Word = dictResult.Word,
-                Chinese = dictResult.AutoSugg,
-                Frequency = (long)dictResult.Freq
-            };
-
             XDocument doc = XDocument.Parse(dictResult.Defi);
 
             var prons = doc.Root.Descendants("PRON").Descendants("PRON").ToList();

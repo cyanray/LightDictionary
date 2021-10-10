@@ -14,8 +14,6 @@ namespace DictionaryService.Models
 
         public string UkPronunciation { get; set; }
 
-        public SuggestionItem Suggestion {  get; set; }
-
         public List<WordDefinition> ChineseDefinitions { get; set; } = new List<WordDefinition>();
 
         public List<WordDefinition> EnglishDefinitions { get; set; } = new List<WordDefinition>();

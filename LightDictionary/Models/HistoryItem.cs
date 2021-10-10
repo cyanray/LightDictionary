@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DictionaryService.Models
+namespace LightDictionary.Models
 {
-    public class SuggestionItem
+    public class HistoryItem
     {
         public string Word { get; set; }
 
         public string Chinese { get; set; }
 
-        public long Frequency { get; set; }
     }
 }
