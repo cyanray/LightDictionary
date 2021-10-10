@@ -146,6 +146,7 @@ namespace LightDictionary
                     // TODO: 捕获异常
                     throw;
                 }
+                this.Bindings.Update();
             }
             base.OnNavigatedTo(e);
         }
