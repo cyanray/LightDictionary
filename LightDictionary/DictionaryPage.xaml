@@ -64,7 +64,7 @@
                                    TextWrapping="WrapWholeWords" 
                                    IsTextSelectionEnabled="True" />
                         <TextBlock Text="{x:Bind EnglishDefinition}" 
-                                   Foreground="DarkGray"
+                                   Foreground="OrangeRed"
                                    TextTrimming="CharacterEllipsis"
                                    TextWrapping="WrapWholeWords" 
                                    IsTextSelectionEnabled="True" />
@@ -310,11 +310,11 @@
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center" 
                                        Text="没有搜索到结果"></TextBlock>
-                            <StackPanel x:Name="LocalResultContent" Spacing="8">
+                            <StackPanel x:Name="LocalResultContent">
                                 <TextBlock Text="{x:Bind SearchText}" 
                                        FontSize="32" 
                                        IsTextSelectionEnabled="True" />
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
                                     <StackPanel Margin="0,0,20,0" Spacing="2" Orientation="Horizontal" Visibility="{x:Bind LocalResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                         <TextBlock Text="UK" />
                                         <TextBlock Text="[" />
@@ -337,7 +337,8 @@
                                     <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="英 - 中"></TextBlock>
                                 </Grid>
 
-                                <ListView SelectionMode="None"
+                                <ListView Margin="0,8,0,0"
+                                          SelectionMode="None"
                                           ItemsSource="{x:Bind LocalResult.ChineseDefinitions}"
                                           ItemTemplate="{StaticResource WordDefinitionTemplate}">
                                     <ListView.ItemContainerStyle>
@@ -357,7 +358,8 @@
                                     <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="英 - 英"></TextBlock>
                                 </Grid>
 
-                                <ListView SelectionMode="None"
+                                <ListView Margin="0,8,0,0"
+                                          SelectionMode="None"
                                           ItemsSource="{x:Bind LocalResult.EnglishDefinitions}"
                                           ItemTemplate="{StaticResource WordDefinitionTemplate}">
                                     <ListView.ItemContainerStyle>
@@ -377,7 +379,8 @@
                                     <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="例句"></TextBlock>
                                 </Grid>
 
-                                <ListView SelectionMode="None"
+                                <ListView Margin="0,8,0,0"
+                                          SelectionMode="None"
                                           ItemsSource="{x:Bind LocalResult.ExampleSentences}"
                                           ItemTemplate="{StaticResource ExampleSentenceTemplate}">
                                     <ListView.ItemContainerStyle>
@@ -450,11 +453,14 @@
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center" 
                                        Text="没有搜索到结果"></TextBlock>
-                            <StackPanel x:Name="BingResultContent" Spacing="8">
-                                <TextBlock Text="{x:Bind SearchText}" 
-                                       FontSize="30" 
-                                       IsTextSelectionEnabled="True" />
-                                <StackPanel Spacing="5" Orientation="Horizontal">
+                            <StackPanel x:Name="BingResultContent">
+                                <TextBlock Margin="0,8,0,0"
+                                           Text="{x:Bind SearchText}" 
+                                           FontSize="30" 
+                                           IsTextSelectionEnabled="True" />
+                                <StackPanel Margin="0,8,0,0"
+                                            Spacing="5" 
+                                            Orientation="Horizontal">
                                     <Button VerticalAlignment="Center"
                                         Visibility="{x:Bind BingResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                         <StackPanel Spacing="2" Orientation="Horizontal">
@@ -491,9 +497,11 @@
                                     <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="英 - 中"></TextBlock>
                                 </Grid>
 
-                                <ListView SelectionMode="None"
+                                <ListView Margin="0,8,0,0"
+                                          SelectionMode="None"
                                           ItemsSource="{x:Bind BingResult.ChineseDefinitions}"
-                                          ItemTemplate="{StaticResource WordDefinitionTemplate}">
+                                          ItemTemplate="{StaticResource WordDefinitionTemplate}"
+                                          Visibility="{x:Bind BingResult.ChineseDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="Padding" Value="0"/>
@@ -511,9 +519,11 @@
                                     <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="英 - 英"></TextBlock>
                                 </Grid>
 
-                                <ListView SelectionMode="None"
+                                <ListView Margin="0,8,0,0"
+                                          SelectionMode="None"
                                           ItemsSource="{x:Bind BingResult.EnglishDefinitions}"
-                                          ItemTemplate="{StaticResource WordDefinitionTemplate}">
+                                          ItemTemplate="{StaticResource WordDefinitionTemplate}"
+                                          Visibility="{x:Bind BingResult.EnglishDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="Padding" Value="0"/>
@@ -531,9 +541,11 @@
                                     <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="例句"></TextBlock>
                                 </Grid>
 
-                                <ListView SelectionMode="None"
+                                <ListView Margin="0,8,0,0"
+                                          SelectionMode="None"
                                           ItemsSource="{x:Bind BingResult.ExampleSentences}"
-                                          ItemTemplate="{StaticResource ExampleSentenceTemplate}">
+                                          ItemTemplate="{StaticResource ExampleSentenceTemplate}"
+                                          Visibility="{x:Bind BingResult.ExampleSentences, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="Padding" Value="0"/>
@@ -551,9 +563,11 @@
                                     <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="权威英汉词典"></TextBlock>
                                 </Grid>
 
-                                <ListView SelectionMode="None"
+                                <ListView Margin="0,8,0,0"
+                                          SelectionMode="None"
                                           ItemsSource="{x:Bind BingResult.DualLangDefinitions, Mode=OneWay}"
-                                          ItemTemplate="{StaticResource DualLangWordDefinitionTemplate}">
+                                          ItemTemplate="{StaticResource DualLangWordDefinitionTemplate}"
+                                          Visibility="{x:Bind BingResult.DualLangDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="Padding" Value="0"/>

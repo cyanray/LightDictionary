@@ -47,6 +47,17 @@ namespace DictionaryService
                 }
             }
 
+            var wordResult = meaningGroups
+                .Where(x => x.PartsOfSpeech.Description == "英汉")
+                .ToList();
+
+            foreach (var item in wordResult)
+            {
+                var partOfSpeech = item.PartsOfSpeech?.Name;
+                var defination = string.Join("; ", item.Meaning.RichDefinitions.Select(x => x.Fragments.FirstOrDefault()?.Text));
+                result.ChineseDefinitions.Add(new WordDefinition() { PartOfSpeech = partOfSpeech, Definition = defination });
+            }
+
             var authResult = meaningGroups
                 .Where(x => x.PartsOfSpeech.Description == "权威英汉双解")
                 .ToList();
