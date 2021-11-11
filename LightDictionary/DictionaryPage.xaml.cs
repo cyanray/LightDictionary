@@ -11,6 +11,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Media.Core;
 using Windows.Media.Playback;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -35,37 +36,59 @@ namespace LightDictionary
 
         private AppSettings AppSettings = Constants.AppSettings;
 
+        private string ClipBoardText { get; set; } = null;
+
         public DictionaryPage()
         {
             this.InitializeComponent();
 
-            SearchHistoryList.ItemsSource = AppSettings.SearchHistoryItems;
-
-            var clipboard =
-                Observable.FromEventPattern<EventHandler<object>, object>(
-                    handler => Clipboard.ContentChanged += handler,
-                    handler => Clipboard.ContentChanged -= handler);
-            var clipboardText = clipboard
-                .Select(async x =>
+            CoreWindow window = CoreWindow.GetForCurrentThread();
+            window.Activated += async (sender, args) =>
             {
-                string result = null;
                 DataPackageView dataPackageView = Clipboard.GetContent();
                 if (dataPackageView.Contains(StandardDataFormats.Text))
                 {
-                    result = await dataPackageView.GetTextAsync();
-                }
-                return result;
-            })
-                .Select(async v =>
-            {
-                var x = await v;
-                return x is null
-                    ? null
-                    : new List<SuggestionItem>()
+                    var text = await dataPackageView.GetTextAsync();
+                    if (text != ClipBoardText)
                     {
-                        new SuggestionItem() { Word = x }
-                    };
-            });
+                        ClipBoardText = text;
+                        // update suggestion items
+                        DictionarySearchBox.ItemsSource = new List<SuggestionItem>()
+                        {
+                            new SuggestionItem() { Word = ClipBoardText }
+                        };
+                    }
+                }
+            };
+
+            SearchHistoryList.ItemsSource = AppSettings.SearchHistoryItems;
+
+            //var clipboard =
+            //    Observable.FromEventPattern<EventHandler<object>, object>(
+            //        handler => Clipboard.ContentChanged += handler,
+            //        handler => Clipboard.ContentChanged -= handler);
+            //var clipboardResult = clipboard
+            //    .ObserveOnDispatcher(Windows.UI.Core.CoreDispatcherPriority.Normal)
+            //    .Select(async x =>
+            //{
+            //    string result = null;
+            //    DataPackageView dataPackageView = Clipboard.GetContent();
+            //    if (dataPackageView.Contains(StandardDataFormats.Text))
+            //    {
+            //        result = await dataPackageView.GetTextAsync();
+            //    }
+            //    return result;
+            //})
+            //    .Select(async v =>
+            //{
+            //    var x = await v;
+            //    return x is null
+            //        ? null
+            //        : new List<SuggestionItem>()
+            //        {
+            //            new SuggestionItem() { Word = x }
+            //        };
+            //});
 
             var changed =
                 Observable.FromEventPattern<
@@ -91,7 +114,7 @@ namespace LightDictionary
                 .Select(x => WordSuggestion.GetSuggestionsAsync(x.Sender.Text, 8));
 
             var merge = Observable
-                .Merge(notUserInput, userInput, clipboardText)
+                .Merge(notUserInput, userInput)
                 .Switch();
 
             merge
