@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Media.Core;
 using Windows.Media.Playback;
@@ -40,6 +41,35 @@ namespace LightDictionary
 
             SearchHistoryList.ItemsSource = AppSettings.SearchHistoryItems;
 
+            var clipboard =
+                Observable.FromEventPattern<EventHandler<object>, object>(
+                    handler => Clipboard.ContentChanged += handler,
+                    handler => Clipboard.ContentChanged -= handler);
+            var clipboardText = clipboard.Select(async x =>
+            {
+                string result = null;
+                DataPackageView dataPackageView = Clipboard.GetContent();
+                if (dataPackageView.Contains(StandardDataFormats.Text))
+                {
+                    result = await dataPackageView.GetTextAsync();
+                }
+                return result;
+            }).Select(async v =>
+            {
+                var x = await v;
+                if (x is null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return new List<SuggestionItem>()
+                    {
+                        new SuggestionItem() { Word = x }
+                    };
+                }
+            });
+
             var changed =
                 Observable.FromEventPattern<
                     TypedEventHandler<AutoSuggestBox, AutoSuggestBoxTextChangedEventArgs>,
@@ -64,7 +94,7 @@ namespace LightDictionary
                 .Select(x => WordSuggestion.GetSuggestionsAsync(x.Sender.Text, 8));
 
             var merge = Observable
-                .Merge(notUserInput, userInput)
+                .Merge(notUserInput, userInput, clipboardText)
                 .Switch();
 
             merge
@@ -95,7 +125,7 @@ namespace LightDictionary
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            var searchText = SearchText?.Trim();
+            var searchText = SearchText?.Trim()?.ToLower();
             if (string.IsNullOrEmpty(searchText)) return;
             var param = new DictionaryNavParam()
             {
