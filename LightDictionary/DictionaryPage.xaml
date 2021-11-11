@@ -15,6 +15,8 @@
     Loaded="Page_Loaded">
 
     <Page.Resources>
+        <utils:HideWhenEmptyOrNullConverter x:Key="HideWhenEmptyOrNullConverter" />
+
         <DataTemplate x:Name="WordDefinitionTemplate" x:DataType="models:WordDefinition">
             <Grid ColumnSpacing="10" Margin="0,5">
                 <Grid.ColumnDefinitions>
@@ -113,8 +115,6 @@
                            Visibility="{x:Bind Chinese, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}"/>
             </StackPanel>
         </DataTemplate>
-
-        <utils:HideWhenEmptyOrNullConverter x:Key="HideWhenEmptyOrNullConverter" />
     </Page.Resources>
 
     <ScrollViewer>

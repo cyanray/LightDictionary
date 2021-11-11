@@ -30,7 +30,7 @@ namespace LightDictionary.Utils
 
         public object ConvertBack(object value, Type targetType, object parameter, string culture)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }
