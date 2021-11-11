@@ -45,7 +45,8 @@ namespace LightDictionary
                 Observable.FromEventPattern<EventHandler<object>, object>(
                     handler => Clipboard.ContentChanged += handler,
                     handler => Clipboard.ContentChanged -= handler);
-            var clipboardText = clipboard.Select(async x =>
+            var clipboardText = clipboard
+                .Select(async x =>
             {
                 string result = null;
                 DataPackageView dataPackageView = Clipboard.GetContent();
@@ -54,20 +55,16 @@ namespace LightDictionary
                     result = await dataPackageView.GetTextAsync();
                 }
                 return result;
-            }).Select(async v =>
+            })
+                .Select(async v =>
             {
                 var x = await v;
-                if (x is null)
-                {
-                    return null;
-                }
-                else
-                {
-                    return new List<SuggestionItem>()
+                return x is null
+                    ? null
+                    : new List<SuggestionItem>()
                     {
                         new SuggestionItem() { Word = x }
                     };
-                }
             });
 
             var changed =
@@ -158,14 +155,18 @@ namespace LightDictionary
                 catch (Exception)
                 {
                     // TODO: 捕获异常
-                    throw;
+                    // throw;
                 }
 
-                AppSettings.AddSearchHistoryItem(new HistoryItem()
+                var historyItem = new HistoryItem()
                 {
-                    Word = SearchText,
-                    Chinese = string.Join("\n", LocalResult?.ChineseDefinitions.Select(x => x.Definition))
-                });
+                    Word = SearchText
+                };
+                if (LocalResult != null)
+                {
+                    historyItem.Chinese = string.Join("\n", LocalResult.ChineseDefinitions.Select(x => x.Definition));
+                }
+                AppSettings.AddSearchHistoryItem(historyItem);
 
                 try
                 {
@@ -175,7 +176,7 @@ namespace LightDictionary
                 catch (Exception)
                 {
                     // TODO: 捕获异常
-                    throw;
+                    // throw;
                 }
                 this.Bindings.Update();
             }
