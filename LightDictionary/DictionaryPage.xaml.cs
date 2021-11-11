@@ -95,10 +95,11 @@ namespace LightDictionary
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            if (string.IsNullOrEmpty(SearchText?.Trim())) return;
+            var searchText = SearchText?.Trim();
+            if (string.IsNullOrEmpty(searchText)) return;
             var param = new DictionaryNavParam()
             {
-                SearchText = SearchText
+                SearchText = searchText
             };
             SearchAction(param);
         }
