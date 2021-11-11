@@ -190,6 +190,9 @@ namespace LightDictionary
                     case "Note":
                         _ = ContentFrame.Navigate(typeof(NotePage));
                         break;
+                    case "About":
+                        _ = ContentFrame.Navigate(typeof(AboutPage));
+                        break;
                     default:
                         break;
                 }

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutPageTitle.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="AppDisplayName.Text" xml:space="preserve">
     <value>Light Dictionary</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="LocalDictionaryResultHeader.Text" xml:space="preserve">
     <value>Local dictionary</value>
+  </data>
+  <data name="NavItemAbout.Content" xml:space="preserve">
+    <value>About</value>
   </data>
   <data name="NavItemDictionary.Content" xml:space="preserve">
     <value>Dictionary</value>

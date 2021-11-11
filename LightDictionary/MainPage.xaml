@@ -84,6 +84,16 @@
                 <muxc:NavigationViewItem x:Uid="NavItemNote" Icon="Highlight" Tag="Note"/>
             </muxc:NavigationView.MenuItems>
 
+            <muxc:NavigationView.FooterMenuItems>
+                <muxc:NavigationViewItem x:Uid="NavItemAbout" Tag="About">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon FontFamily="{StaticResource SegoeFluentIcons}"
+                                  Glyph="&#xE946;"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+            </muxc:NavigationView.FooterMenuItems>
+
+
             <Frame x:Name="ContentFrame"
                    Margin="{StaticResource NavigationViewContentMargin}" 
                    Navigated="ContentFrame_Navigated" />

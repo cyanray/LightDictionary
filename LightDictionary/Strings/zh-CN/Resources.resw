@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutPageTitle.Text" xml:space="preserve">
+    <value>关于</value>
+  </data>
   <data name="AppDisplayName.Text" xml:space="preserve">
     <value>轻词典</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="LocalDictionaryResultHeader.Text" xml:space="preserve">
     <value>本地词典</value>
+  </data>
+  <data name="NavItemAbout.Content" xml:space="preserve">
+    <value>关于</value>
   </data>
   <data name="NavItemDictionary.Content" xml:space="preserve">
     <value>词典</value>
