@@ -155,6 +155,7 @@
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Utils\ExtentionMethods.cs" />
     <Compile Include="Utils\HideWhenEmptyOrNullConverter.cs" />
+    <Compile Include="Utils\ObservableValue.cs" />
     <Compile Include="Utils\ThemeHelper.cs" />
   </ItemGroup>
   <ItemGroup>

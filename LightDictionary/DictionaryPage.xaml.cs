@@ -30,9 +30,9 @@ namespace LightDictionary
 
         public string SearchText { get; set; }
 
-        public DictItem LocalResult { get; set; }
+        public ObservableValue<DictItem> LocalResult { get; set; } = new ObservableValue<DictItem>();
 
-        public DictItem BingResult { get; set; }
+        public ObservableValue<DictItem> BingResult { get; set; } = new ObservableValue<DictItem>();
 
         private AppSettings AppSettings = Constants.AppSettings;
 
@@ -172,7 +172,7 @@ namespace LightDictionary
 
                 try
                 {
-                    LocalResult = await localResult;
+                    LocalResult.Value = await localResult;
                     VisualStateManager.GoToState(this, HasLocalSearchResultState.Name, false);
                 }
                 catch (Exception)
@@ -187,13 +187,13 @@ namespace LightDictionary
                 };
                 if (LocalResult != null)
                 {
-                    historyItem.Chinese = string.Join("\n", LocalResult.ChineseDefinitions.Select(x => x.Definition));
+                    historyItem.Chinese = string.Join("\n", LocalResult.Value.ChineseDefinitions.Select(x => x.Definition));
                 }
                 AppSettings.AddSearchHistoryItem(historyItem);
 
                 try
                 {
-                    BingResult = await bingResult;
+                    BingResult.Value = await bingResult;
                     VisualStateManager.GoToState(this, HasBingSearchResultState.Name, false);
                 }
                 catch (Exception)

@@ -112,7 +112,7 @@
                            TextTrimming="CharacterEllipsis"
                            FontSize="12"
                            Foreground="Gray"
-                           Visibility="{x:Bind Chinese, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}"/>
+                           Visibility="{x:Bind Chinese, Mode=OneTime, Converter={StaticResource HideWhenEmptyOrNullConverter}}"/>
             </StackPanel>
         </DataTemplate>
     </Page.Resources>
@@ -163,7 +163,7 @@
                 </VisualState>
                 <VisualState x:Name="NoLocalSearchResultState">
                     <VisualState.StateTriggers>
-                        <triggers:IsNullOrEmptyStateTrigger Value="{x:Bind LocalResult, Mode=OneWay}"/>
+                        <triggers:IsNullOrEmptyStateTrigger Value="{x:Bind LocalResult.Value, Mode=OneWay}"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="LocalResultContent.Visibility" Value="Collapsed"/>
@@ -181,7 +181,7 @@
                 </VisualState>
                 <VisualState x:Name="NoBingSearchResultState">
                     <VisualState.StateTriggers>
-                        <triggers:IsNullOrEmptyStateTrigger Value="{x:Bind BingResult, Mode=OneWay}"/>
+                        <triggers:IsNullOrEmptyStateTrigger Value="{x:Bind BingResult.Value, Mode=OneWay}"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="BingResultContent.Visibility" Value="Collapsed"/>
@@ -315,17 +315,17 @@
                                        FontSize="32" 
                                        IsTextSelectionEnabled="True" />
                                 <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
-                                    <StackPanel Margin="0,0,20,0" Spacing="2" Orientation="Horizontal" Visibility="{x:Bind LocalResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                    <StackPanel Margin="0,0,20,0" Spacing="2" Orientation="Horizontal" Visibility="{x:Bind LocalResult.Value.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                         <TextBlock Text="UK" />
                                         <TextBlock Text="[" />
-                                        <TextBlock Text="{x:Bind LocalResult.UkPronunciation}" IsTextSelectionEnabled="True" />
+                                        <TextBlock Text="{x:Bind LocalResult.Value.UkPronunciation}" IsTextSelectionEnabled="True" />
                                         <TextBlock Text="]" />
                                     </StackPanel>
 
-                                    <StackPanel Spacing="2" Orientation="Horizontal" Visibility="{x:Bind LocalResult.UsPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                    <StackPanel Spacing="2" Orientation="Horizontal" Visibility="{x:Bind LocalResult.Value.UsPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                         <TextBlock Text="US" />
                                         <TextBlock Text="[" />
-                                        <TextBlock Text="{x:Bind LocalResult.UsPronunciation}" IsTextSelectionEnabled="True" />
+                                        <TextBlock Text="{x:Bind LocalResult.Value.UsPronunciation}" IsTextSelectionEnabled="True" />
                                         <TextBlock Text="]" />
                                     </StackPanel>
                                 </StackPanel>
@@ -333,13 +333,13 @@
                                 <Grid Margin="0,5,0,0" 
                                       BorderThickness="0,0,0,1" 
                                       BorderBrush="Gray"
-                                      Visibility="{x:Bind LocalResult.ChineseDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                      Visibility="{x:Bind LocalResult.Value.ChineseDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="英 - 中"></TextBlock>
                                 </Grid>
 
                                 <ListView Margin="0,8,0,0"
                                           SelectionMode="None"
-                                          ItemsSource="{x:Bind LocalResult.ChineseDefinitions}"
+                                          ItemsSource="{x:Bind LocalResult.Value.ChineseDefinitions}"
                                           ItemTemplate="{StaticResource WordDefinitionTemplate}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
@@ -354,13 +354,13 @@
                                 <Grid Margin="0,5,0,0" 
                                       BorderThickness="0,0,0,1" 
                                       BorderBrush="Gray"
-                                      Visibility="{x:Bind LocalResult.EnglishDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                      Visibility="{x:Bind LocalResult.Value.EnglishDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="英 - 英"></TextBlock>
                                 </Grid>
 
                                 <ListView Margin="0,8,0,0"
                                           SelectionMode="None"
-                                          ItemsSource="{x:Bind LocalResult.EnglishDefinitions}"
+                                          ItemsSource="{x:Bind LocalResult.Value.EnglishDefinitions}"
                                           ItemTemplate="{StaticResource WordDefinitionTemplate}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
@@ -375,13 +375,13 @@
                                 <Grid Margin="0,5,0,0" 
                                       BorderThickness="0,0,0,1" 
                                       BorderBrush="Gray"
-                                      Visibility="{x:Bind LocalResult.ExampleSentences, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                      Visibility="{x:Bind LocalResult.Value.ExampleSentences, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="例句"></TextBlock>
                                 </Grid>
 
                                 <ListView Margin="0,8,0,0"
                                           SelectionMode="None"
-                                          ItemsSource="{x:Bind LocalResult.ExampleSentences}"
+                                          ItemsSource="{x:Bind LocalResult.Value.ExampleSentences}"
                                           ItemTemplate="{StaticResource ExampleSentenceTemplate}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
@@ -462,11 +462,11 @@
                                             Spacing="5" 
                                             Orientation="Horizontal">
                                     <Button VerticalAlignment="Center"
-                                        Visibility="{x:Bind BingResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                        Visibility="{x:Bind BingResult.Value.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                         <StackPanel Spacing="2" Orientation="Horizontal">
                                             <TextBlock Text="US" VerticalAlignment="Center"></TextBlock>
                                             <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
-                                            <TextBlock Text="{x:Bind BingResult.UsPronunciation, Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="{x:Bind BingResult.Value.UsPronunciation, Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
                                             <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
                                             <FontIcon
                                       VerticalAlignment="Center"
@@ -476,11 +476,11 @@
                                     </Button>
 
                                     <Button VerticalAlignment="Center"
-                                        Visibility="{x:Bind BingResult.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                        Visibility="{x:Bind BingResult.Value.UkPronunciation, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                         <StackPanel Spacing="2" Orientation="Horizontal">
                                             <TextBlock Text="UK" VerticalAlignment="Center"></TextBlock>
                                             <TextBlock Text="[" VerticalAlignment="Center"></TextBlock>
-                                            <TextBlock Text="{x:Bind BingResult.UkPronunciation, Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="{x:Bind BingResult.Value.UkPronunciation, Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
                                             <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
                                             <FontIcon
                                       VerticalAlignment="Center"
@@ -493,15 +493,15 @@
                                 <Grid Margin="0,5,0,0" 
                                       BorderThickness="0,0,0,1" 
                                       BorderBrush="Gray"
-                                      Visibility="{x:Bind BingResult.ChineseDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                      Visibility="{x:Bind BingResult.Value.ChineseDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="英 - 中"></TextBlock>
                                 </Grid>
 
                                 <ListView Margin="0,8,0,0"
                                           SelectionMode="None"
-                                          ItemsSource="{x:Bind BingResult.ChineseDefinitions}"
+                                          ItemsSource="{x:Bind BingResult.Value.ChineseDefinitions}"
                                           ItemTemplate="{StaticResource WordDefinitionTemplate}"
-                                          Visibility="{x:Bind BingResult.ChineseDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                          Visibility="{x:Bind BingResult.Value.ChineseDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="Padding" Value="0"/>
@@ -515,15 +515,15 @@
                                 <Grid Margin="0,5,0,0" 
                                       BorderThickness="0,0,0,1" 
                                       BorderBrush="Gray"
-                                      Visibility="{x:Bind BingResult.EnglishDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                      Visibility="{x:Bind BingResult.Value.EnglishDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="英 - 英"></TextBlock>
                                 </Grid>
 
                                 <ListView Margin="0,8,0,0"
                                           SelectionMode="None"
-                                          ItemsSource="{x:Bind BingResult.EnglishDefinitions}"
+                                          ItemsSource="{x:Bind BingResult.Value.EnglishDefinitions}"
                                           ItemTemplate="{StaticResource WordDefinitionTemplate}"
-                                          Visibility="{x:Bind BingResult.EnglishDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                          Visibility="{x:Bind BingResult.Value.EnglishDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="Padding" Value="0"/>
@@ -537,15 +537,15 @@
                                 <Grid Margin="0,5,0,0" 
                                       BorderThickness="0,0,0,1" 
                                       BorderBrush="Gray"
-                                      Visibility="{x:Bind BingResult.ExampleSentences, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                      Visibility="{x:Bind BingResult.Value.ExampleSentences, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="例句"></TextBlock>
                                 </Grid>
 
                                 <ListView Margin="0,8,0,0"
                                           SelectionMode="None"
-                                          ItemsSource="{x:Bind BingResult.ExampleSentences}"
+                                          ItemsSource="{x:Bind BingResult.Value.ExampleSentences}"
                                           ItemTemplate="{StaticResource ExampleSentenceTemplate}"
-                                          Visibility="{x:Bind BingResult.ExampleSentences, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                          Visibility="{x:Bind BingResult.Value.ExampleSentences, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="Padding" Value="0"/>
@@ -559,15 +559,15 @@
                                 <Grid Margin="0,5,0,0" 
                                       BorderThickness="0,0,0,1" 
                                       BorderBrush="Gray"
-                                      Visibility="{x:Bind BingResult.DualLangDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                      Visibility="{x:Bind BingResult.Value.DualLangDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <TextBlock Margin="0,0,0,2" Foreground="Gray" Text="权威英汉词典"></TextBlock>
                                 </Grid>
 
                                 <ListView Margin="0,8,0,0"
                                           SelectionMode="None"
-                                          ItemsSource="{x:Bind BingResult.DualLangDefinitions, Mode=OneWay}"
+                                          ItemsSource="{x:Bind BingResult.Value.DualLangDefinitions, Mode=OneWay}"
                                           ItemTemplate="{StaticResource DualLangWordDefinitionTemplate}"
-                                          Visibility="{x:Bind BingResult.DualLangDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
+                                          Visibility="{x:Bind BingResult.Value.DualLangDefinitions, Mode=OneWay, Converter={StaticResource HideWhenEmptyOrNullConverter}}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="Padding" Value="0"/>
