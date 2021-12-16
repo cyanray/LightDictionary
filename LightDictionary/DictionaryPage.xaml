@@ -469,9 +469,10 @@
                                             <TextBlock Text="{x:Bind BingResult.Value.UsPronunciation, Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
                                             <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
                                             <FontIcon
-                                      VerticalAlignment="Center"
-                                      FontFamily="{StaticResource SegoeFluentIcons}"
-                                      Glyph="&#xE767;"/>
+                                                FontSize="18"
+                                                VerticalAlignment="Bottom"
+                                                FontFamily="{StaticResource SegoeFluentIcons}"
+                                                Glyph="&#xe995;"/>
                                         </StackPanel>
                                     </Button>
 
@@ -483,9 +484,10 @@
                                             <TextBlock Text="{x:Bind BingResult.Value.UkPronunciation, Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
                                             <TextBlock Text="]" VerticalAlignment="Center"></TextBlock>
                                             <FontIcon
-                                      VerticalAlignment="Center"
-                                      FontFamily="{StaticResource SegoeFluentIcons}"
-                                      Glyph="&#xE767;"/>
+                                                FontSize="18"
+                                                VerticalAlignment="Bottom"
+                                                FontFamily="{StaticResource SegoeFluentIcons}"
+                                                Glyph="&#xe995;"/>
                                         </StackPanel>
                                     </Button>
                                 </StackPanel>
