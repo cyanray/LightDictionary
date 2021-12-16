@@ -11,7 +11,7 @@
     <Grid Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
           BorderThickness="1" 
           BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
-          CornerRadius="5">
+          CornerRadius="{ThemeResource ControlCornerRadius}">
         <Grid Padding="16,12" Background="Transparent">
             <ContentPresenter Content="{x:Bind MainContent}" />
         </Grid>
