@@ -49,7 +49,7 @@ namespace LightDictionary
                 if (dataPackageView.Contains(StandardDataFormats.Text))
                 {
                     var text = await dataPackageView.GetTextAsync();
-                    if (text != ClipBoardText)
+                    if (text != ClipBoardText && !text.Contains("\n"))
                     {
                         ClipBoardText = text;
                         // update suggestion items
