@@ -7,9 +7,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <ScrollViewer>
         <StackPanel Spacing="10" Margin="30">
             <TextBlock x:Uid="AboutPageTitle" FontSize="26"></TextBlock>
+            <StackPanel Spacing="5">
+                <Image Source="/Assets/Logo/Logo.png" Height="100" HorizontalAlignment="Center" />
+                <TextBlock x:Uid="AppDisplayName" FontWeight="Bold" FontSize="22" HorizontalAlignment="Center" />
+                <TextBlock x:Uid="AppDescription" HorizontalAlignment="Center" />
+                <StackPanel Spacing="8" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock x:Uid="AboutPageVersion" />
+                    <TextBlock Text="{x:Bind Version}" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <HyperlinkButton Content="Github repo" NavigateUri="https://github.com/cyanray/LightDictionary" />
+                    <HyperlinkButton Content="Feedback" NavigateUri="https://github.com/cyanray/LightDictionary/issues" />
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </Page>

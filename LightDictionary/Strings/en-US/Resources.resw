@@ -120,6 +120,12 @@
   <data name="AboutPageTitle.Text" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="AboutPageVersion.Text" xml:space="preserve">
+    <value>Version:</value>
+  </data>
+  <data name="AppDescription.Text" xml:space="preserve">
+    <value>A lightweight UWP dictionary program.</value>
+  </data>
   <data name="AppDisplayName.Text" xml:space="preserve">
     <value>Light Dictionary</value>
   </data>

@@ -120,6 +120,12 @@
   <data name="AboutPageTitle.Text" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="AboutPageVersion.Text" xml:space="preserve">
+    <value>版本:</value>
+  </data>
+  <data name="AppDescription.Text" xml:space="preserve">
+    <value>一个轻量的UWP词典程序。</value>
+  </data>
   <data name="AppDisplayName.Text" xml:space="preserve">
     <value>轻词典</value>
   </data>
