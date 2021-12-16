@@ -34,7 +34,7 @@ namespace LightDictionary
 
         public ObservableValue<DictItem> BingResult { get; set; } = new ObservableValue<DictItem>();
 
-        private AppSettings AppSettings = Constants.AppSettings;
+        private AppSettings AppSettings = AppShared.AppSettings;
 
         private string ClipBoardText { get; set; } = null;
 
@@ -167,8 +167,8 @@ namespace LightDictionary
                 HasSearchResult = true;
                 VisualStateManager.GoToState(this, DisplaySearchResultState.Name, false);
 
-                var bingResult = Constants.BingOnlineDictionaryService.SearchAsync(SearchText);
-                var localResult = Constants.BingLocalDictionaryService.SearchAsync(SearchText, AppSettings.EnableEnhancedDictionary);
+                var bingResult = AppShared.BingOnlineDictionaryService.SearchAsync(SearchText);
+                var localResult = AppShared.BingLocalDictionaryService.SearchAsync(SearchText, AppSettings.EnableEnhancedDictionary);
 
                 try
                 {

@@ -61,7 +61,7 @@ namespace LightDictionary
             {
                 string themeName = selectItem.Tag.ToString();
                 ThemeHelper.RootTheme = ThemeHelper.GetEnum<ElementTheme>(themeName);
-                Constants.AppSettings.CustomTheme = themeName;
+                AppShared.AppSettings.CustomTheme = themeName;
             }
         }
 
