@@ -8,24 +8,9 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Light">
-                    <Color x:Key="CardViewBackground">#B3FFFFFF</Color>
-                    <SolidColorBrush x:Key="CardViewBorderBrush" Color="#0F000000"></SolidColorBrush>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Dark">
-                    <Color x:Key="CardViewBackground">#0DFFFFFF</Color>
-                    <SolidColorBrush x:Key="CardViewBorderBrush" Color="#0FFFFFFF"></SolidColorBrush>
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
-    <Grid Background="{ThemeResource CardViewBackground}" 
+    <Grid Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
           BorderThickness="1" 
-          BorderBrush="{ThemeResource CardViewBorderBrush}" 
+          BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
           CornerRadius="5">
         <Grid Padding="16,12" Background="Transparent">
             <ContentPresenter Content="{x:Bind MainContent}" />
