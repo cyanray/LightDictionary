@@ -4,12 +4,85 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:LightDictionary"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:models="using:LightDictionary.Models" 
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" 
+    xmlns:utils="using:LightDictionary.Utils" xmlns:usercontrols="using:LightDictionary.UserControls"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
 
+    <Page.Resources>
+        <DataTemplate x:Key="NoteItemCollapsedTemplate" x:DataType="models:NoteItem">
+            <muxc:TreeViewItem AutomationProperties.Name="{x:Bind Content}"
+                               IsSelected="{x:Bind IsSelected, Mode=TwoWay}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,1" Text="{x:Bind Content}" />
+                </StackPanel>
+            </muxc:TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="NoteItemExpandedTemplate" x:DataType="models:NoteItem">
+            <muxc:TreeViewItem AutomationProperties.Name="{x:Bind Content}"
+                               IsSelected="{x:Bind IsSelected, Mode=TwoWay}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,1" Text="{x:Bind Content}" />
+                    <TextBlock Margin="0,1" Text="{x:Bind CreateTime}" />
+                </StackPanel>
+            </muxc:TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="NoteHeaderTemplate" x:DataType="models:NoteHeader">
+            <muxc:TreeViewItem AutomationProperties.Name="{x:Bind Title}"
+                               ItemsSource="{x:Bind Items}"
+                               IsExpanded="True">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{x:Bind Title}" FontSize="18"/>
+                </StackPanel>
+            </muxc:TreeViewItem>
+        </DataTemplate>
+
+        <utils:NoteItemTemplateSelector x:Key="NoteItemTemplateSelector"
+                                        NoteItemCollapsedTemplate="{StaticResource NoteItemCollapsedTemplate}"
+                                        NoteItemExpandedTemplate="{StaticResource NoteItemExpandedTemplate}"
+                                        NoteHeaderTemplate="{StaticResource NoteHeaderTemplate}" />
+
+
+    </Page.Resources>
     <Grid>
-        <StackPanel Spacing="10" Margin="30">
-            <TextBlock x:Uid="NotePageTitle" FontSize="26"></TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Spacing="10" Margin="30,30,30,10">
+            <TextBlock x:Uid="NotePageTitle" FontSize="26"/>
         </StackPanel>
+
+        <Grid Grid.Row="1" Margin="30,0,30,20" ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <muxc:TreeView x:Name="NoteTreeView" Grid.Column="0"
+                           ItemsSource="{x:Bind NoteHeaders}"
+                           CanDragItems="False"
+                           AllowDrop="False"
+                           SelectionMode="Single"
+                           ItemTemplateSelector="{StaticResource NoteItemTemplateSelector}"
+                           Tapped="NoteTreeView_Tapped"/>
+
+            <usercontrols:CardView Grid.Column="2">
+                <ScrollViewer>
+                    <StackPanel>
+                        <TextBlock FontSize="30" 
+                                   Text="{x:Bind SelectedNoteItem.Value.Content, Mode=OneWay}"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </usercontrols:CardView>
+
+        </Grid>
+
+
     </Grid>
 </Page>
