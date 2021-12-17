@@ -141,8 +141,12 @@
     <Compile Include="Models\HistoryItem.cs" />
     <Compile Include="Models\NoteHeader.cs" />
     <Compile Include="Models\NoteItem.cs" />
+    <Compile Include="Models\NoteViewNavParam.cs" />
     <Compile Include="NotePage.xaml.cs">
       <DependentUpon>NotePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NoteViewPage.xaml.cs">
+      <DependentUpon>NoteViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsPage.xaml.cs">
@@ -238,6 +242,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="NotePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NoteViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

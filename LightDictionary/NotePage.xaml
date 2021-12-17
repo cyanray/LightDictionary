@@ -54,6 +54,29 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="MinimalWindowSize" >
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="NoteTreeView.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="NoteCardView.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NormalWindowSize">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="NoteTreeView.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="NoteCardView.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
         <StackPanel Spacing="10" Margin="30,30,30,10">
             <TextBlock x:Uid="NotePageTitle" FontSize="26"/>
         </StackPanel>
@@ -70,9 +93,10 @@
                            AllowDrop="False"
                            SelectionMode="Single"
                            ItemTemplateSelector="{StaticResource NoteItemTemplateSelector}"
+                           DoubleTapped="NoteTreeView_DoubleTapped"
                            Tapped="NoteTreeView_Tapped"/>
 
-            <usercontrols:CardView Grid.Column="2">
+            <usercontrols:CardView x:Name="NoteCardView" Grid.Column="2">
                 <ScrollViewer>
                     <StackPanel>
                         <TextBlock FontSize="30" 

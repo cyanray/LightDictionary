@@ -116,5 +116,14 @@ namespace LightDictionary
                 SelectedNoteItem.Value = item;
             }
         }
+
+        private void NoteTreeView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            if (NoteTreeView.SelectedItem is NoteItem item)
+            {
+                SelectedNoteItem.Value = item;
+                _ = MainPage.MainPageFrame.Navigate(typeof(NoteViewPage), new NoteViewNavParam() { NoteItem = item });
+            }
+        }
     }
 }
